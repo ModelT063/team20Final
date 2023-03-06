@@ -16,10 +16,10 @@ export default async(req: NextApiRequest, res: NextApiResponse) => {
         newUser.User_ID,
         newUser.Email,
         newUser.User_Type,
-        newUser.User_Status,
+        1,
         newUser.F_Name,
         newUser.L_Name,
-        newUser.Points
+        0
       ], (error: any, results: any, fields: any) => {
         if (error) throw error;
         return res.status(200).json(results);

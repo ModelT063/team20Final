@@ -3,5 +3,5 @@ export type PointChange = {
     Point_Change: number,
     Change_Reason: string,
     Change_Time: Date,
-    User_ID?: number
+    User_ID?: string
 }

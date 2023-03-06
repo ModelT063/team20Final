@@ -10,7 +10,7 @@ export enum UserStatus {
 }
 
 export type User = {
-  User_ID?: number;
+  User_ID?: string;
   Email: string;
   User_Type: UserType;
   User_Status: UserStatus;

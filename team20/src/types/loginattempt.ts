@@ -8,5 +8,5 @@ export type LoginAttempt = {
     Username: string,
     Login_Status: LoginStatus,
     Login_Time: Date,
-    User_ID?: number
+    User_ID?: string
 }

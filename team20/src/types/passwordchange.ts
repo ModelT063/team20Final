@@ -6,5 +6,5 @@ export type PasswordChange = {
     Password_Change_ID?: number,
     Change_Time: Date,
     Change_Type: ChangeType,
-    User_ID?: number
+    User_ID?: string
 }
