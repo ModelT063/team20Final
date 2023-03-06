@@ -5,6 +5,7 @@ import Link from "next/link";
 const MENU_LIST = [
   { text: "Home", href: "/_index" },
   { text: "Account Info", href: "/_account" },
+  { text: "Personal Information", href: "/_pii" },
 ];
 const Navbar = () => {
   const [navActive, setNavActive] = useState(null);
