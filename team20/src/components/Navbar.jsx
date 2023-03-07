@@ -3,9 +3,9 @@ import NavItem from "./NavItem";
 import Link from "next/link";
 
 const MENU_LIST = [
-  { text: "Home", href: "/_index" },
-  { text: "Account Info", href: "/_account" },
-  { text: "Personal Information", href: "/_pii" },
+  { text: "Home", href: "/index" },
+  { text: "Account Info", href: "/account" },
+  { text: "Personal Information", href: "/pii" },
 ];
 const Navbar = () => {
   const [navActive, setNavActive] = useState(null);
