@@ -1,0 +1,24 @@
+/* import {} from 'aws-amplify'
+import { PostAuthenticationTriggerEvent, PostConfirmationTriggerEvent, PreSignUpTriggerEvent } from 'aws-lambda'
+import Auth from '@aws-amplify/auth';
+import { db } from './lib/db'
+
+export const preSignUpTrigger =  async (
+    event: 
+        | PreSignUpTriggerEvent
+        | PostConfirmationTriggerEvent
+        | PostAuthenticationTriggerEvent
+) => {
+    await db;
+    event.request.userAttributes['custom:role'] == 'user'
+
+    const {
+        request: {
+            userAttributes: { email, sub }
+        }
+    } = event
+
+    //Get list of users by email to check if they signed up yet
+    await Auth.currentUserInfo 
+    
+} */
