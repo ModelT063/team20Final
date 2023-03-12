@@ -14,7 +14,6 @@ const data = response;
 console.log(response);
 
 function App({ signOut, user }: { signOut: any; user: any }) {
-  // const callAPI = async () => {addUser};
   return (
     <>
       <div>
@@ -23,7 +22,6 @@ function App({ signOut, user }: { signOut: any; user: any }) {
       </div>
       <h1>HOMEPAGE!!</h1>
       <h1>Hello {user.username}</h1>
-      
     </>
   );
 }
