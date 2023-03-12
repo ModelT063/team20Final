@@ -9,7 +9,9 @@ import awsExports from "../../aws-exports-fixed";
 Amplify.configure(awsExports);
 
 // import addUser from "api/users/create/adduser";
-
+const response = fetch('/api/users/read/24');
+const data = response;
+console.log(response);
 
 function App({ signOut, user }: { signOut: any; user: any }) {
   // const callAPI = async () => {addUser};

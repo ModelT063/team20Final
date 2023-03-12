@@ -1,5 +1,5 @@
 import {db} from "@/lib/db";
-import { Application } from "@/types/application";
+import { Sponsor_Driver_Relationship, RelationshipStatus } from "@/types/sponsor_driver_relationship";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -9,15 +9,17 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
     try {
         console.log(req.body);
-        const newApplication: Application = req.body;
+        const newRelationship: Sponsor_Driver_Relationship = req.body;
         db.connect( (err) => {
             if (err) throw err;
-            db.query("INSERT INTO Applications VALUES (?, ?, ?, ?)", 
+            db.query("INSERT INTO OrgDriverRelationship VALUES (?, ?, ?, ?, ?, ?)", 
             [
-                newApplication.Application_ID,
-                newApplication.Time_Submitted,
-                newApplication.Application_Status,
-                newApplication.Application_Document
+                0,
+                RelationshipStatus.pending,
+                newRelationship.User_ID,
+                newRelationship.Sponsor_Org_ID,
+                Date(),
+                newRelationship.Application_Document
             ], (error: any, results: any, fields: any) => {
                 if (error) throw error;
                 return res.status(200).json(results);

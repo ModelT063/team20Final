@@ -1,5 +1,5 @@
 import {db} from "@/lib/db";
-import { Application } from "@/types/application";
+import { Sponsor_Driver_Relationship } from "@/types/sponsor_driver_relationship";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -9,14 +9,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
     try {
         console.log(req.body);
-        const updatedApplication: Application = req.body;
+        const updatedApplication: Sponsor_Driver_Relationship = req.body;
         db.connect( (err) => {
             if (err) throw err;
-            db.query("UPDATE Applications SET Time_Submitted = ?, Application_Status = ?, " + 
-            " Application_Document = ? WHERE Application_ID = ?", 
+            db.query("UPDATE OrgDriverRelationship SET Application_Time_Submitted = ?, Relationship_Status = ?, " + 
+            " Application_Document = ? WHERE SD_Relationship_ID = ?", 
             [
-                updatedApplication.Time_Submitted,
-                updatedApplication.Application_Status,
+                updatedApplication.Application_Time_Submitted,
+                updatedApplication.Relationship_Status,
                 updatedApplication.Application_Document,
                 parseInt(req.query.id as string)
             ], (error: any, results: any, fields: any) => {
