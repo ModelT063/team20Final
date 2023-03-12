@@ -8,11 +8,8 @@ import "@aws-amplify/ui-react/styles.css";
 import awsExports from "../../aws-exports-fixed";
 Amplify.configure(awsExports);
 
-// import addUser from "api/users/create/adduser";
-
 
 function App({ signOut, user }: { signOut: any; user: any }) {
-  // const callAPI = async () => {addUser};
   return (
     <>
       <div>
@@ -21,7 +18,6 @@ function App({ signOut, user }: { signOut: any; user: any }) {
       </div>
       <h1>HOMEPAGE!!</h1>
       <h1>Hello {user.username}</h1>
-      
     </>
   );
 }
