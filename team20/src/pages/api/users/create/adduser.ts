@@ -13,7 +13,7 @@ export default async(req: NextApiRequest, res: NextApiResponse) => {
     db.connect( (err) => {
       if (err) throw err;
       db.query("INSERT INTO Users VALUES (?, ?, ?, ?, ?, ?, ?)", [
-        newUser.User_ID,
+        0,
         newUser.Email,
         newUser.User_Type,
         1,

@@ -1,5 +1,5 @@
 import {db} from "@/lib/db";
-import { SponsorOrganization, OrganizationStatus } from "@/types/sponsororganization";
+import { PointChange } from '@/types/pointchange'
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -9,17 +9,16 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
     try {
         console.log(req.body);
-        const newOrganization: SponsorOrganization = req.body;
+        const newPointChange: PointChange = req.body;
         db.connect( (err) => {
             if (err) throw err;
-            db.query("INSERT INTO SponsorOrganizations VALUES (?, ?, ?, ?, ?, ?)", 
+            db.query("INSERT INTO PointChanges VALUES (?, ?, ?, ?, ?)", 
             [
                 0,
-                newOrganization.Organization_Name,
-                newOrganization.Points_Ratio,
-                newOrganization.Address,
-                newOrganization.Organization_Status,
-                newOrganization.Catalog_ID
+                newPointChange.Point_Change,
+                newPointChange.Change_Reason,
+                new Date(),
+                newPointChange.User_ID
             ], (error: any, results: any, fields: any) => {
                 if (error) throw error;
                 return res.status(200).json(results);

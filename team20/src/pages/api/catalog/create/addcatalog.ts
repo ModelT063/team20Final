@@ -14,7 +14,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             if (err) throw err;
             db.query("INSERT INTO CatalogSettings VALUES (?, ?)", 
             [
-                newCatalog.Catalog_ID,
+                0,
                 newCatalog.Catalog_Name,
             ], (error: any, results: any, fields: any) => {
                 if (error) throw error;
