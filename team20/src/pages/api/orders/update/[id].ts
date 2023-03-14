@@ -1,5 +1,6 @@
+// this endpoint will be used to update information for an order based on the order_ID
 import {db} from "@/lib/db";
-import { User } from "@/types/user";
+import { Order } from "@/types/order";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -9,18 +10,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
     try {
         console.log(req.body);
-        const updatedUser: User = req.body;
+        const updatedOrder: Order = req.body;
         db.connect( (err) => {
             if (err) throw err;
-            db.query("UPDATE Users SET Email = ?, User_Type = ?, User_Status = ?," +
-            "F_Name = ?, L_Name = ?, Points = ? WHERE User_ID = ?", 
+            db.query("UPDATE Orders SET Order_Status = ?, Product = ?, Order_Time = ? WHERE Order_ID = ?",
             [
-                updatedUser.Email,
-                updatedUser.User_Type,
-                updatedUser.User_Status,
-                updatedUser.F_Name,
-                updatedUser.L_Name,
-                updatedUser.Points,
+                updatedOrder.Order_Status,
+                updatedOrder.Product,
+                new Date(),
                 (req.query.id as string)
             ], (error: any, results: any, fields: any) => {
                 if (error) throw error;
@@ -31,4 +28,4 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         console.log(e);
         return res.status(500).end();
     }
-};
+}
