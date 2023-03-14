@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  name: KEYMARK-5R0KKN3
+  name: Team 20 Self Hosts
   
 steps:
 - bash: |
