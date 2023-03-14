@@ -7,8 +7,8 @@ trigger:
 - main
 
 pool:
-  vmImage: ubuntu-latest
-
+  name: KEYMARK-5R0KKN3
+  
 steps:
 - bash: |
     git push --prune https://github.com/ModelT063/awsTestDeploy2 \
