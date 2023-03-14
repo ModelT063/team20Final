@@ -1,4 +1,4 @@
-// pass in user_id to get the name of their sponsor organization
+// pass in user_id to get the name of their sponsor organization(s)
 // not sure how to handle multiple requests that would all need user_Id using dynamic routes
 import {db} from "@/lib/db";
 import { NextApiRequest, NextApiResponse } from "next";
@@ -12,12 +12,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         console.log(req.body);
         db.connect( (err) => {
             if (err) throw err;
-            db.query("SELECT b.Organization_Name FROM OrgDriverRelationship a " + 
+            db.query("SELECT b.Organization_Name, a.Relationship_Status FROM OrgDriverRelationship a " + 
             "INNER JOIN SponsorOrganizations b ON a.Sponsor_Org_ID = b.Sponsor_Org_ID " +
-            "WHERE b.Organization_Status = ? AND a.Relationship_Status = ? AND " +
+            "WHERE b.Organization_Status = ? AND " +
             "a.User_ID = ?", 
             [
-                1,
                 1,
                 (req.query.id as string)
             ], (error: any, results: any, fields: any) => {
