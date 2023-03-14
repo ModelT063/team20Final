@@ -12,10 +12,10 @@ export default async(req: NextApiRequest, res: NextApiResponse) => {
     const newUser: User = req.body;
     db.connect( (err) => {
       if (err) throw err;
-      db.query("INSERT INTO Users VALUES (?, ?, ?, ?, ?, ?, ?)", [
-        0,
+      db.query("INSERT IGNORE INTO Users VALUES (?, ?, ?, ?, ?, ?, ?)", [
+        newUser.User_ID,
         newUser.Email,
-        newUser.User_Type,
+        0,
         1,
         newUser.F_Name,
         newUser.L_Name,
