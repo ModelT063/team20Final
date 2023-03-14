@@ -1,0 +1,50 @@
+// Don't know what to do with this. Lambda is very confusing and with both of these I've been trying to 
+migrate a user that currently exists in the user pool but not the database to the database. 
+
+import { PostAuthenticationTriggerEvent, PostConfirmationTriggerEvent, PreSignUpTriggerEvent } from 'aws-lambda'
+import Amplify, {Auth, Hub} from 'aws-amplify'
+import awsmobile from 'aws-exports-fixed'
+import CognitoHostedUIIdentityProvider from '@aws-amplify/auth'
+import Authenticator from "@aws-amplify/ui-react"
+import { db } from './lib/db'
+import * as createNewUser from './pages/api/users/create/adduser'
+import * as checkId from './pages/api/users/read/[id]' 
+
+
+export const handle = async (event: PostConfirmationTriggerEvent, context: any, callback: any) => {
+    const cognitoRequest = event.request;
+    const userAttr = cognitoRequest;
+    
+    let driverUsers = 
+}
+//Add user to database
+async function checkUser() {
+    const user = await Auth.currentAuthenticatedUser();
+
+    user.attributes["sub"].createNewUser()
+
+    
+
+}
+
+var aws = require('aws-sdk')
+import { db } from './lib/db'
+import * as createNewUser from './pages/api/users/create/adduser'
+
+exports.handler = async(event, context) => {
+    console.log(event);
+    let date = new Date();
+    const tableN = process.env.TABLE_NAME;
+
+    if (event.request.userAttributes.sub) {
+        let dbParams = {
+            Item: {
+                'id': {S: event.request.userAttributes.sub},
+                'email': {S: event.request.userAttributes.email},
+                'User_Type': {S: 'User'},
+            }
+        }
+        const user = await Auth.currentAuthenticatedUser();
+        db.createNewUser();
+    }
+}
