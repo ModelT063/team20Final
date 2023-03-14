@@ -1,6 +1,7 @@
 export enum ChangeType {
-
-} // we'll need to define the different types 
+    admin_change = 0,
+    user_change = 1
+}
 
 export type PasswordChange = {
     Password_Change_ID?: number,
