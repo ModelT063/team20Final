@@ -8,10 +8,10 @@ export default function Account() {
         </div>
         <h1>Catalog</h1>
         <table>
-            <th> Product ID </th>
-            <th> Name       </th>
-            <th> Price      </th> 
-            <th> Description</th>            
+            <th> Product ID     </th>
+            <th> Name           </th>
+            <th> Price          </th> 
+            <th> Description    </th>            
         </table>
         </>
     );
