@@ -128,7 +128,7 @@ nav{
   padding: 16px;
   justify-content: space-between;
   align-items: center;
-  background-color: #3a3a3a;
+  background-color: #1257c0;
 }
 .nav__menu-bar{
   display: flex;
@@ -153,7 +153,7 @@ nav{
   padding: 24px 16px;
   transition: all 0.2s;
   min-height: calc(100vh - 60px);
-  background-color: #3a3a3a;
+  background-color: white;
 }
 .nav__menu-list.active{
   right: 0;
@@ -193,11 +193,25 @@ nav{
     height: 6px;
     bottom: -16px;
     left: 0;
-    background-color: black;
+    background-color: rgb(178, 33, 33);
     transition: all 0.2s;
   }
   
   .nav__link:hover:before{
    width: 100%;
   }
+}
+
+table {
+  border: 2px solid #1257c0;
+  width: 800px;
+  height: 200px;
+}
+
+th {
+  border-bottom: 1px solid black;
+}
+  
+td {
+  text-align: center;
 }

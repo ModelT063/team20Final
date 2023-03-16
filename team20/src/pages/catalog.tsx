@@ -1,4 +1,6 @@
 import Navbar from '../components/Navbar';
+//import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+//<svg data-testid="ShoppingCartIcon"></svg>
 
 export default function Account() {
     return (
