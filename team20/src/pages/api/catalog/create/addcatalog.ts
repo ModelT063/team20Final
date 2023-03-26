@@ -12,10 +12,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         const newCatalog: CatalogSettings = req.body;
         db.connect( (err) => {
             if (err) throw err;
-            db.query("INSERT INTO CatalogSettings VALUES (?, ?)", 
+            db.query("INSERT INTO CatalogSettings VALUES (?, ?, ?)", 
             [
                 0,
                 newCatalog.Catalog_Name,
+                '{}',
             ], (error: any, results: any, fields: any) => {
                 if (error) throw error;
                 return res.status(200).json(results);
