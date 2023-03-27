@@ -5,7 +5,7 @@ import { Amplify } from "aws-amplify";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 
-import awsExports from "../../aws-exports-fixed";
+import awsExports from "./aws-exports-fixed";
 Amplify.configure(awsExports);
 
 // import addUser from "api/users/create/adduser";

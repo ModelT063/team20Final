@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 class Register extends Component {
     state = {
-        //username: "",
+        username: "",
         email: "",
         password: "",
         confirmpassword: "",
@@ -22,7 +22,7 @@ class Register extends Component {
         const { email, password } = this.state; //username
         try {
           const signUpResponse = await Auth.signUp({
-            //username,
+            username,
             password,
             attributes: {
               email: email
@@ -38,7 +38,7 @@ class Register extends Component {
         this.setState({
           [event.target.id]: event.target.value
         });
-        document.getElementById(event.target.id).classList.remove("is-danger");
+        //document.getElementById(event.target.id).classList.remove("is-danger");
     }
 
     render() {
@@ -48,7 +48,7 @@ class Register extends Component {
               <h1>Register</h1>
     
               <form onSubmit={this.handleSubmit}>
-                {/*
+                
                 <div className="field">
                    <p className="control">
                     <input 
@@ -62,7 +62,7 @@ class Register extends Component {
                     />
                   </p>
                 </div>
-                */}
+                
                 <div className="field">
                   <p className="control has-icons-left has-icons-right">
                     <input 
