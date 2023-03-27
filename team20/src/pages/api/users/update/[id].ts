@@ -1,5 +1,5 @@
 import {db} from "@/lib/db";
-import { User, UserType, UserStatus } from "@/types/user";
+import { User } from "@/types/user";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {

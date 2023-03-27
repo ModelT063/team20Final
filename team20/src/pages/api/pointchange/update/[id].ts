@@ -1,23 +1,23 @@
-// pass in user_id to get the name of their sponsor organization(s)
-// not sure how to handle multiple requests that would all need user_Id using dynamic routes
+// this will update a specific point_change record based on the point_change_ID
 import {db} from "@/lib/db";
+import { PointChange } from "@/types/pointchange";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-    if (req.method !== "GET") {
-        res.setHeader("Allow", ["GET"]);
+    if (req.method !== "PUT") {
+        res.setHeader("Allow", ["PUT"]);
         return res.status(405).end(`Method ${req.method} Not Allowed`);
     }
     try {
         console.log(req.body);
+        const updatedPointChange: PointChange = req.body;
         db.connect( (err) => {
-            if (err) throw err;
-            db.query("SELECT b.Organization_Name, a.Relationship_Status FROM OrgDriverRelationship a " + 
-            "INNER JOIN SponsorOrganizations b ON a.Sponsor_Org_ID = b.Sponsor_Org_ID " +
-            "WHERE b.Organization_Status = ? AND " +
-            "a.User_ID = ?", 
+            db.query("UPDATE PointChanges SET Point_Change = ?, Change_Reason = ?, Change_Time = ? " + 
+            " WHERE Point_Change_ID = ?", 
             [
-                1,
+                updatedPointChange.Point_Change,
+                updatedPointChange.Change_Reason,
+                new Date(),
                 (req.query.id as string)
             ], (error: any, results: any, fields: any) => {
                 if (error) throw error;
