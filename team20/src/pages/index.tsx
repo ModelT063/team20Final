@@ -8,12 +8,6 @@ import "@aws-amplify/ui-react/styles.css";
 import awsExports from "../../aws-exports-fixed";
 Amplify.configure(awsExports);
 
-<<<<<<< HEAD
-
-function App({ signOut, user }: { signOut: any; user: any }) {
-=======
-// import addUser from "api/users/create/adduser";
-
 function App({ signOut, user }: { signOut: any; user: any }) {
   const name = user.attributes.name.split(" ");
   const data = {
@@ -34,7 +28,6 @@ function App({ signOut, user }: { signOut: any; user: any }) {
     .catch((error) => {
       console.error("Error: ", error);
     });
->>>>>>> refs/remotes/origin/main
   return (
     <>
       <div>
