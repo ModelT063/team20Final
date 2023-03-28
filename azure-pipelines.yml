@@ -14,5 +14,5 @@ steps:
     git push --prune https://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@github.com/ModelT063/awsTestDeploy2 \
         +refs/remotes/origin/*:refs/heads/* +refs/tags/*:refs/tags/*
   displayName: 'Copy to Github'
-  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+  #condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
 
