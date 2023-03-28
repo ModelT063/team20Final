@@ -16,7 +16,7 @@ export default async(req: NextApiRequest, res: NextApiResponse) => {
         newUser.User_ID,
         newUser.Email,
         UserStatus.active,
-        UserType.driver,
+        UserType.sponsor,
         newUser.F_Name,
         newUser.L_Name,
         0
