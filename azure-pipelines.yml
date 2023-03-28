@@ -11,8 +11,8 @@ pool:
   
 steps:
 - bash: |
-    git push --prune https://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@github.com/ModelT063/testAzureConnection \
-        +refs/remotes/origin/*:refs/heads/* +refs/tags/*:refs/tags/*
+    git push https://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@github.com/ModelT063/testAzureConnection
+        #+refs/remotes/origin/*:refs/heads/* +refs/tags/*:refs/tags/*
   displayName: 'Copy to Github'
   #condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
 
