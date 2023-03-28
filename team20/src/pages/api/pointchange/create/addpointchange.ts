@@ -1,5 +1,5 @@
 import {db} from "@/lib/db";
-import { CatalogSettings } from "@/types/catalogsettings";
+import { PointChange } from '@/types/pointchange'
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -9,14 +9,16 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
     try {
         console.log(req.body);
-        const newCatalog: CatalogSettings = req.body;
+        const newPointChange: PointChange = req.body;
         db.connect( (err) => {
             if (err) throw err;
-            db.query("INSERT INTO CatalogSettings VALUES (?, ?, ?)", 
+            db.query("INSERT INTO PointChanges VALUES (?, ?, ?, ?, ?)", 
             [
                 0,
-                newCatalog.Catalog_Name,
-                '{}',
+                newPointChange.Point_Change,
+                newPointChange.Change_Reason,
+                new Date(),
+                newPointChange.User_ID
             ], (error: any, results: any, fields: any) => {
                 if (error) throw error;
                 return res.status(200).json(results);

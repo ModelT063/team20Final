@@ -1,5 +1,4 @@
 import {db} from "@/lib/db";
-import { SponsorOrganization, OrganizationStatus } from "@/types/sponsororganization";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {

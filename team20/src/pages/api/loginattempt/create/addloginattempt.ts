@@ -14,7 +14,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             if (err) throw err;
             db.query("INSERT INTO LoginAttempts VALUES (?, ?, ?, ?, ?)", 
             [
-                newLoginAttempt.Login_ID,
+                0,
                 newLoginAttempt.Username,
                 newLoginAttempt.Login_Status,
                 newLoginAttempt.Login_Time,

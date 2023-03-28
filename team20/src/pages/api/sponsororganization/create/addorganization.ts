@@ -14,7 +14,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             if (err) throw err;
             db.query("INSERT INTO SponsorOrganizations VALUES (?, ?, ?, ?, ?, ?)", 
             [
-                newOrganization.Sponsor_Org_ID,
+                0,
                 newOrganization.Organization_Name,
                 newOrganization.Points_Ratio,
                 newOrganization.Address,

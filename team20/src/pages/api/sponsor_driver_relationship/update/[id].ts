@@ -1,5 +1,5 @@
 import {db} from "@/lib/db";
-import { CatalogSettings } from "@/types/catalogsettings";
+import { Sponsor_Driver_Relationship } from "@/types/sponsor_driver_relationship";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -9,14 +9,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
     try {
         console.log(req.body);
-        const updatedCatalog: CatalogSettings = req.body;
-        console.log(updatedCatalog.iTunes_Endpoint);
+        const updatedApplication: Sponsor_Driver_Relationship = req.body;
         db.connect( (err) => {
             if (err) throw err;
-            db.query("UPDATE CatalogSettings SET Catalog_Name = ?, iTunes_Endpoint = ? WHERE Catalog_ID = ?", 
+            db.query("UPDATE OrgDriverRelationship SET Application_Time_Submitted = ?, Relationship_Status = ?, " + 
+            " Application_Document = ? WHERE SD_Relationship_ID = ?", 
             [
-                updatedCatalog.Catalog_Name,
-                JSON.stringify(updatedCatalog.iTunes_Endpoint),
+                updatedApplication.Application_Time_Submitted,
+                updatedApplication.Relationship_Status,
+                updatedApplication.Application_Document,
                 parseInt(req.query.id as string)
             ], (error: any, results: any, fields: any) => {
                 if (error) throw error;
@@ -27,4 +28,4 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         console.log(e);
         return res.status(500).end();
     }
-};
+}

@@ -1,5 +1,5 @@
 import {db} from "@/lib/db";
-import { CatalogSettings } from "@/types/catalogsettings";
+import {Order, OrderStatus} from "@/types/order"
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -9,14 +9,17 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
     try {
         console.log(req.body);
-        const newCatalog: CatalogSettings = req.body;
+        const newOrder: Order = req.body;
         db.connect( (err) => {
             if (err) throw err;
-            db.query("INSERT INTO CatalogSettings VALUES (?, ?, ?)", 
+            db.query("INSERT INTO Orders VALUES (?, ?, ?, ?, ?, ?)",
             [
                 0,
-                newCatalog.Catalog_Name,
-                '{}',
+                newOrder.User_ID,
+                newOrder.Point_Change_ID,
+                OrderStatus.submitted,
+                newOrder.Product,
+                new Date()
             ], (error: any, results: any, fields: any) => {
                 if (error) throw error;
                 return res.status(200).json(results);
