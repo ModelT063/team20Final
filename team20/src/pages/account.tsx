@@ -6,7 +6,6 @@ class Register extends Component {
   state = {
     name: "",
     username: "",
-    email: "",
     password: "",
     confirmpassword: "",
     errors: {
@@ -25,15 +24,12 @@ class Register extends Component {
       const signUpResponse = await Auth.signUp({
         name,
         username,
-        password,
-        attributes: {
-          email: email
-        }
+        password
       });
       console.log(signUpResponse);
 
-      // insert user into database
       /*
+      // insert user into database
       const name = this.state.name.split(" ");
       const data = {
         User_ID: user.attributes.sub, Email: user.attributes.email,
@@ -82,26 +78,10 @@ class Register extends Component {
                   type="text"
                   id="username"
                   aria-describedby="userNameHelp"
-                  placeholder="Enter username"
+                  placeholder="Enter email"
                   value={this.state.username}
                   onChange={this.onInputChange}
                 />
-              </p>
-            </div>
-            <div className="field">
-              <p className="control has-icons-left has-icons-right">
-                <input 
-                  className="input" 
-                  type="email"
-                  id="email"
-                  aria-describedby="emailHelp"
-                  placeholder="Enter email"
-                  value={this.state.email}
-                  onChange={this.onInputChange}
-                />
-                <span className="icon is-small is-left">
-                  <i className="fas fa-envelope"></i>
-                </span>
               </p>
             </div>
             <div className="field">
