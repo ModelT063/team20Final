@@ -10,6 +10,7 @@ const awsmobile = {
   ],
   "aws_cognito_social_providers": [],
   "aws_cognito_signup_attributes": [
+      "USERNAME",
       "EMAIL",
       "NAME"
   ],

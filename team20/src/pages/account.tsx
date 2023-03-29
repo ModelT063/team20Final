@@ -2,9 +2,9 @@ import Navbar from '../components/Navbar';
 import { Auth } from "aws-amplify";
 import React, { Component } from 'react';
 
-
 class Register extends Component {
   state = {
+    name: "",
     username: "",
     email: "",
     password: "",
@@ -20,9 +20,10 @@ class Register extends Component {
     event.preventDefault();
 
     // AWS Cognito integration here
-    const { username, email, password } = this.state;
+    const { name, username, email, password } = this.state;
     try {
       const signUpResponse = await Auth.signUp({
+        name,
         username,
         password,
         attributes: {
@@ -30,10 +31,36 @@ class Register extends Component {
         }
       });
       console.log(signUpResponse);
+
+      // insert user into database
+      /*
+      const name = this.state.name.split(" ");
+      const data = {
+        User_ID: user.attributes.sub, Email: user.attributes.email,
+        F_Name: name[0], L_Name: name[1]
+      };
+      fetch("http://localhost:3000/api/users/create/adduser", {
+        method: "POST",
+        headers: {
+        "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success: ", data);
+      })
+      .catch((error) => {
+        console.error("Error: ", error);
+      });
+
+    }
+    */
+
     } catch (err) {
         console.log('error resending code: ', err);
     }
-  }
+}
 
   onInputChange = event => {
     this.setState({
