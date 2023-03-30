@@ -19,43 +19,47 @@ class Register extends Component {
     event.preventDefault();
 
     // AWS Cognito integration here
-    const { name, username, email, password } = this.state;
+    const { name, username, password } = this.state;
     try {
-      const signUpResponse = await Auth.signUp({
-        name,
-        username,
-        password
-      });
-      console.log(signUpResponse);
+        const signUpResponse = await Auth.signUp({
+            name,
+            username,
+            password
+        });
+        console.log(signUpResponse);
 
-      /*
-      // insert user into database
-      const name = this.state.name.split(" ");
-      const data = {
-        User_ID: user.attributes.sub, Email: user.attributes.email,
-        F_Name: name[0], L_Name: name[1]
-      };
-      fetch("http://localhost:3000/api/users/create/adduser", {
+
+        console.log('sending to database.');
+        // insert user into database
+        const newname = this.state.name.split(" ");
+        const data = {
+        // NEED TO FIGURE OUT HOW TO GET USER ID FROM USER POOL
+        User_ID: 0, Email: this.state.username,
+        F_Name: newname[0], L_Name: newname[1]
+        };
+
+        console.log('sending to database..');
+        fetch("http://localhost:3000/api/users/create/adduser", {
         method: "POST",
         headers: {
         "Content-Type": "application/json",
         },
         body: JSON.stringify(data)
-      })
-      .then((response) => response.json())
-      .then((data) => {
+        })
+        .then((response) => response.json())
+        .then((data) => {
         console.log("Success: ", data);
-      })
-      .catch((error) => {
-        console.error("Error: ", error);
-      });
+        })
+        .catch((error) => {
+        console.log("Error: ", error);
+        });
+        console.log('sending to database...');
 
-    }
-    */
 
     } catch (err) {
         console.log('error resending code: ', err);
     }
+
 }
 
   onInputChange = event => {
