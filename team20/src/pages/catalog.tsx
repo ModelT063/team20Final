@@ -5,9 +5,11 @@ import {
   Paper,
   TextField,
   Typography,
+  Button,
+  Grid
 } from "@mui/material";
 import Navbar from "../components/Navbar";
-import { Fullscreen, Search } from "@mui/icons-material";
+import { Fullscreen, Search} from "@mui/icons-material";
 import { useState } from "react";
 import { iTunesAlbum } from "@/types/catalogTypes";
 import { getAlbumsFromiTunes } from "@/utils/catalogService";
@@ -30,6 +32,7 @@ export default function Account() {
         width="100%"
         justifyContent="center"
         display="flex"
+        gap="2rem"
         color="0xFFFFFF"
         flexDirection="column"
         padding="8px"
@@ -48,7 +51,9 @@ export default function Account() {
             setSearchTerm(e.target.value);
           }}
         ></TextField>
-        <Box>
+        <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}
+        justifyContent="center"
+        width="100%">
           {searchResults.length == 0 ? (
             <Typography>
               Please type a search term and click the magnifying glass
@@ -56,7 +61,7 @@ export default function Account() {
           ) : (
             searchResults.map((v) => <AlbumTile album={v} />)
           )}
-        </Box>
+        </Grid>
       </Box>
     </>
   );
@@ -92,6 +97,7 @@ const AlbumTile = (props: AlbumTileProps) => {
         />
         <Typography variant="h5">{album.collectionName}</Typography>
         <Typography>${album.collectionPrice}</Typography>
+        <Button variant = "outlined">Add to Catalog</Button>
       </Box>
     </Paper>
   );
