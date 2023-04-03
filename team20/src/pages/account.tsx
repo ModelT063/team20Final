@@ -71,6 +71,8 @@ class Register extends Component {
 
   render() {
     return (
+      <>
+      <Navbar />
       <section className="section auth">
         <div className="container">
           <h1>Register</h1>
@@ -133,6 +135,7 @@ class Register extends Component {
           </form>
         </div>
       </section>
+      </>
     );
   }
 }
