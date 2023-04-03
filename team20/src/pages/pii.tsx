@@ -2,6 +2,7 @@ import Navbar from "../components/Navbar";
 import { UserInfo, UserType } from "@/types/user";
 import { useState, useEffect } from "react";
 import { Auth } from "aws-amplify";
+import { Loader } from "@aws-amplify/ui-react";
 
 export default function pii() {
   const [userID, setUserID] = useState<string>("");
@@ -20,7 +21,7 @@ export default function pii() {
     }
     getInfo();
   }, [userID, setUserInfo, setUserID]);
-  return (
+  return (userInfo == undefined ? <Loader /> :
     <>
       <div>
         <Navbar />
