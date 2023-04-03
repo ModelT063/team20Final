@@ -9,6 +9,14 @@ export enum UserStatus {
   active = 1,
 }
 
+export type UserInfo = {
+  Email: string;
+  User_Type: UserType;
+  F_Name: string;
+  L_Name: string;
+  Points: number;
+}
+
 export type User = {
   User_ID?: string;
   Email: string;
@@ -16,5 +24,5 @@ export type User = {
   User_Status: UserStatus;
   F_Name: string;
   L_Name: string;
-  Points?: number;
+  Points: number;
 };

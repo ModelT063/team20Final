@@ -13,7 +13,6 @@ import { Fullscreen, Search} from "@mui/icons-material";
 import { useState } from "react";
 import { iTunesAlbum } from "@/types/catalogTypes";
 import { getAlbumsFromiTunes } from "@/utils/catalogService";
-import Image from "next/image";
 
 export default function Account() {
   const [searchResults, setSearchResults] = useState<iTunesAlbum[]>([]);
@@ -74,6 +73,36 @@ type AlbumTileProps = {
 const AlbumTile = (props: AlbumTileProps) => {
   const album = props.album;
 
+  const addToCatalog = async (id: number) => {
+    // would need to get the sponsor user's organization ID in this part by calling
+    // api in sponsor_driver_relationship to get 
+    let cognitoUser = JSON.parse(sessionStorage.getItem('CognitoUser') || '{}');
+    let userID = cognitoUser.username;
+    const res = await fetch(`http://localhost:3000/api/sponsor_driver_relationship/read/${userID}`)
+    let userData = await res.json();
+    // once this completes we can get the organization ID from userData using userData[x].Sponsor_Org_ID
+    // we will now pull from the getcatalog endpoint
+    const next_res = await fetch(`http://localhost:3000/api/catalog/read/${userData[0].Sponsor_Org_ID}`)
+    let catalogArray = await next_res.json();
+    if (!catalogArray[0].catalog.includes(id)) {
+      catalogArray[0].catalog.push(id); // new ID has been added to the array
+    }
+    // now we need to update the entry in the database with the new array
+    const updatedCatalog = {
+      Catalog_Name: catalogArray[0].Catalog_Name,
+      iTunes_Endpoint: {
+        ids: catalogArray[0].catalog
+      }
+    };
+    fetch(`http://localhost:3000/api/catalog/update/${catalogArray[0].Catalog_ID}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedCatalog)
+    });
+  }
+
   return (
     <Paper
       sx={{
@@ -97,7 +126,7 @@ const AlbumTile = (props: AlbumTileProps) => {
         />
         <Typography variant="h5">{album.collectionName}</Typography>
         <Typography>${album.collectionPrice}</Typography>
-        <Button variant = "outlined">Add to Catalog</Button>
+        <Button variant = "outlined" onClick={() => addToCatalog(album.collectionId)}>Add to Catalog</Button>
       </Box>
     </Paper>
   );

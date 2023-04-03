@@ -1,5 +1,3 @@
-// pass in user_id to get the name of their sponsor organization(s)
-// not sure how to handle multiple requests that would all need user_Id using dynamic routes
 import {db} from "@/lib/db";
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -12,12 +10,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         console.log(req.body);
         db.connect( (err) => {
             if (err) throw err;
-            db.query("SELECT b.Organization_Name, b.Sponsor_Org_ID, a.Relationship_Status FROM OrgDriverRelationship a " + 
-            "INNER JOIN SponsorOrganizations b ON a.Sponsor_Org_ID = b.Sponsor_Org_ID " +
-            "WHERE b.Organization_Status = ? AND " +
-            "a.User_ID = ?", 
+            db.query("SELECT a.Catalog_ID, Catalog_Name, iTunes_Endpoint->'$.ids' as catalog FROM CatalogSettings a INNER JOIN SponsorOrganizations b ON a.Catalog_ID = b.Catalog_ID WHERE b.Sponsor_Org_ID = ?",
             [
-                1,
                 parseInt(req.query.id as string)
             ], (error: any, results: any, fields: any) => {
                 if (error) throw error;

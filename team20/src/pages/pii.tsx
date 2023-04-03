@@ -1,37 +1,36 @@
 import Navbar from "../components/Navbar";
+import { UserInfo, UserType } from "@/types/user";
+import { useState, useEffect } from "react";
+import { Auth } from "aws-amplify";
+import { Loader } from "@aws-amplify/ui-react";
+
 export default function pii() {
-  return (
+  const [userID, setUserID] = useState<string>("");
+  const [userInfo, setUserInfo] = useState<UserInfo[]>([]);
+  useEffect( () => {
+    async function getID() {
+      const id = await Auth.currentAuthenticatedUser().then((data) => setUserID(data.username));
+    }
+    async function getInfo() {
+      await getID();
+      if (userID != "") {
+        const res = await fetch(`http://localhost:3000/api/users/read/${userID}`)
+        const info = await res.json();
+        setUserInfo(info);
+      }
+    }
+    getInfo();
+  }, [userID, setUserInfo, setUserID]);
+  return (userInfo == undefined ? <Loader /> :
     <>
       <div>
         <Navbar />
       </div>
       <h1>User Information</h1>
-      <body>
-        Please enter your personal information into the form below to update your account      
-        <form>
-          <label>
-            First Name:
-            <input type="text" name="firstName" /> <br></br>
-          </label>
-          <label>
-            Last Name:
-            <input type="text" name="lastName" /> <br></br>
-          </label>
-          <label>
-            Email:
-            <input type="text" name="email" /> <br></br>
-          </label>
-          <label>
-            Date of Birth:
-            <input type="text" name="dateOfBirth" /> <br></br>
-          </label>
-          <label>
-            Address:
-            <input type="text" name="address" /> <br></br>
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
-      </body>
+      <h3>Name: {userInfo[0] != undefined ? userInfo[0].F_Name + " " + userInfo[0].L_Name : "Unknown User"}</h3>
+      <h3>Email Address: {userInfo[0] != undefined ? userInfo[0].Email : "N/A"}</h3>
+      <h3>User Type: {userInfo[0] != undefined ? (userInfo[0].User_Type == 0 ? "Driver" : (userInfo[0].User_Type == 1 ? "Sponsor" : "Admin"))  : "N/A"}</h3>
+      <h3>Points: {userInfo[0] != undefined ? userInfo[0].Points : "N/A"}</h3>
     </>
   );
 }
