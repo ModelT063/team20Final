@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const MENU_LIST = [
   { text: "Home", href: "/" },
-  { text: "Account Info", href: "/account" },
+  { text: "Register User", href: "/account" },
   { text: "Personal Information", href: "/pii" },
   { text: "Catalog", href: "/catalog" },
 ];

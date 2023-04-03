@@ -7,10 +7,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(405).end(`Method ${req.method} Not Allowed`);
     }
     try {
-        console.log(req.body);
         db.connect( (err) => {
             if (err) throw err;
-            db.query("SELECT Email, User_Status, User_Type, F_Name, L_Name, Points FROM Users " +
+            db.query("SELECT Email, User_Type, F_Name, L_Name, Points FROM Users " +
             " WHERE User_ID = ?", 
             [
                 (req.query.id as string),

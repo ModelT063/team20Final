@@ -13,7 +13,6 @@ import { Fullscreen, Search} from "@mui/icons-material";
 import { useState } from "react";
 import { iTunesAlbum } from "@/types/catalogTypes";
 import { getAlbumsFromiTunes } from "@/utils/catalogService";
-import Image from "next/image";
 
 export default function Account() {
   const [searchResults, setSearchResults] = useState<iTunesAlbum[]>([]);

@@ -1,6 +1,6 @@
 import Navbar from "../components/Navbar";
 
-import { Amplify } from "aws-amplify";
+import { Amplify, Auth } from "aws-amplify";
 
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
@@ -9,7 +9,7 @@ import awsExports from "../../aws-exports-fixed";
 Amplify.configure(awsExports);
 
 function App({ signOut, user }: { signOut: any; user: any }) {
-  sessionStorage.setItem('CognitoUser', JSON.stringify(user));
+  sessionStorage.setItem('CognitoUser', user);
   const name = user.attributes.name.split(" ");
   const data = {
     User_ID: user.attributes.sub, Email: user.attributes.email,
