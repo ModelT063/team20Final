@@ -22,9 +22,11 @@ class Register extends Component {
     const { name, username, password } = this.state;
     try {
         const signUpResponse = await Auth.signUp({
-            name,
             username,
-            password
+            password,
+            attributes: {
+                name
+            }
         });
         console.log(signUpResponse);
 
