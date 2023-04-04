@@ -1,6 +1,9 @@
 import Navbar from '../components/Navbar';
 import { Auth } from "aws-amplify";
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
+import { UserInfo, UserType } from '@/types/user';
+import { getID, getInfo } from '@/utils/userService';
+import NotFoundPage from '@/components/404'
 
 class Register extends Component {
   state = {
@@ -8,6 +11,7 @@ class Register extends Component {
     username: "",
     password: "",
     confirmpassword: "",
+    userType: "",
     errors: {
       cognito: null,
       blankfield: false,
@@ -69,8 +73,18 @@ class Register extends Component {
     //document.getElementById(event.target.id).classList.remove("is-danger");
   }
 
+  loadData = () => {
+    const [userID, setUserID] = useState<string>("");
+    const [userInfo, setUserInfo] = useState<UserInfo[]>([]);
+    useEffect( () => {
+      getID().then((data) => setUserID(data));
+      getInfo().then((data) => setUserInfo(data));
+      this.state.userType = userInfo[0].User_Type.toString()
+    }, [userID, setUserInfo, setUserID]);
+  }
+
   render() {
-    return (
+    return ( parseInt(this.state.userType) != UserType.admin ? <NotFoundPage/> :
       <>
       <Navbar />
       <section className="section auth">

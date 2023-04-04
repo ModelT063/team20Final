@@ -2,26 +2,17 @@ import Navbar from "../components/Navbar";
 import { UserInfo, UserType } from "@/types/user";
 import { useState, useEffect } from "react";
 import { Auth } from "aws-amplify";
-import { Loader } from "@aws-amplify/ui-react";
+import { CircularProgress } from "@mui/material";
+import { getID, getInfo } from "@/utils/userService";
 
 export default function pii() {
   const [userID, setUserID] = useState<string>("");
   const [userInfo, setUserInfo] = useState<UserInfo[]>([]);
   useEffect( () => {
-    async function getID() {
-      const id = await Auth.currentAuthenticatedUser().then((data) => setUserID(data.username));
-    }
-    async function getInfo() {
-      await getID();
-      if (userID != "") {
-        const res = await fetch(`http://localhost:3000/api/users/read/${userID}`)
-        const info = await res.json();
-        setUserInfo(info);
-      }
-    }
-    getInfo();
+    getID().then((data) => setUserID(data));
+    getInfo().then((data) => setUserInfo(data));
   }, [userID, setUserInfo, setUserID]);
-  return (userInfo == undefined ? <Loader /> :
+  return (userInfo[0] == undefined ? <CircularProgress/> :
     <>
       <div>
         <Navbar />

@@ -9,7 +9,6 @@ import awsExports from "../../aws-exports-fixed";
 Amplify.configure(awsExports);
 
 function App({ signOut, user }: { signOut: any; user: any }) {
-  sessionStorage.setItem('CognitoUser', user);
   const name = user.attributes.name.split(" ");
   const data = {
     User_ID: user.attributes.sub, Email: user.attributes.email,

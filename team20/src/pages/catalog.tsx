@@ -100,7 +100,7 @@ const AlbumTile = (props: AlbumTileProps) => {
   const addToCatalog = async (id: number) => {
     // would need to get the sponsor user's organization ID in this part by calling
     // api in sponsor_driver_relationship to get 
-    let cognitoUser = JSON.parse(sessionStorage.getItem('CognitoUser') || '{}');
+    let cognitoUser = JSON.parse(localStorage.getItem('CognitoUser') || '{}');
     let userID = cognitoUser.username;
     const res = await fetch(`http://localhost:3000/api/sponsor_driver_relationship/read/${userID}`)
     let userData = await res.json();
