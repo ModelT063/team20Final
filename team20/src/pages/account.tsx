@@ -34,12 +34,12 @@ class Register extends Component {
         const newname = this.state.name.split(" ");
         const data = {
         // NEED TO FIGURE OUT HOW TO GET USER ID FROM USER POOL
-        User_ID: 0, Email: this.state.username,
-        F_Name: newname[0], L_Name: newname[1]
+            User_ID: 1, Email: this.state.username,
+            F_Name: newname[0], L_Name: newname[1]
         };
 
         console.log('sending to database..');
-        fetch("http://localhost:3000/api/users/create/adduser", {
+        fetch("http://localhost:3000/api/users/create/admin/adduser", {
         method: "POST",
         headers: {
         "Content-Type": "application/json",
@@ -86,6 +86,19 @@ class Register extends Component {
                   aria-describedby="userNameHelp"
                   placeholder="Enter email"
                   value={this.state.username}
+                  onChange={this.onInputChange}
+                />
+              </p>
+            </div>
+            <div className="field">
+              <p className="control">
+                <input 
+                  className="input" 
+                  type="text"
+                  id="name"
+                  aria-describedby="userNameHelp"
+                  placeholder="Enter name"
+                  value={this.state.name}
                   onChange={this.onInputChange}
                 />
               </p>
