@@ -6,10 +6,11 @@ import {
   TextField,
   Typography,
   Button,
-  Grid
+  Grid,
+  Popover
 } from "@mui/material";
 import Navbar from "../components/Navbar";
-import { Fullscreen, Search} from "@mui/icons-material";
+import { AlignHorizontalRight, Colorize, Filter, Filter1, FilterList, Fullscreen, Message, Search, ShoppingCart, ShoppingCartCheckout} from "@mui/icons-material";
 import { useState } from "react";
 import { iTunesAlbum } from "@/types/catalogTypes";
 import { getAlbumsFromiTunes } from "@/utils/catalogService";
@@ -21,12 +22,35 @@ export default function Account() {
     getAlbumsFromiTunes(searchTerm).then((v) => setSearchResults(v.results));
   };
 
+  function filter_prompt(): void {  
+      prompt("Enter your user ID to filter your results to your albums\n");
+  }
+  function checkout_prompt(): void {  
+    prompt("You have 0 items in your cart.\n Click 'OK' to checkout\n");
+}
+
   return (
     <>
       <div>
         <Navbar />
       </div>
-      <h1>Catalog</h1>
+      <h1>Catalog 
+
+      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}
+        justifyContent="right"
+        width="100%">
+
+      <IconButton onClick={() => filter_prompt()}>
+        Filter <FilterList/>
+      </IconButton>
+
+      <IconButton onClick={() => checkout_prompt()}>
+        Cart <ShoppingCart/>
+      </IconButton>
+
+        </Grid>
+      </h1>
+       
       <Box
         width="100%"
         justifyContent="center"
