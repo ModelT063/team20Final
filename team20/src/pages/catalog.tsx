@@ -17,6 +17,8 @@ import { iTunesAlbum } from "@/types/catalogTypes";
 import { getAlbumsFromiTunes } from "@/utils/catalogService";
 import { getID, getInfo } from "@/utils/userService";
 import { UserInfo, UserType } from "@/types/user";
+import { useRecoilValue } from "recoil";
+import { userInfoState } from "@/lib/userData";
 
 export default function Account() {
   const [searchResults, setSearchResults] = useState<iTunesAlbum[]>([]);
@@ -99,12 +101,7 @@ type AlbumTileProps = {
 
 const AlbumTile = (props: AlbumTileProps) => {
   const album = props.album;
-  const [userID, setUserID] = useState<string>("");
-  const [userInfo, setUserInfo] = useState<UserInfo[]>([]);
-  useEffect( () => {
-    getID().then((data) => setUserID(data));
-    getInfo().then((data) => setUserInfo(data));
-  }, []);
+  let userInfo = useRecoilValue(userInfoState);
 
   const addToCatalog = async (id: number) => {
     // would need to get the sponsor user's organization ID in this part by calling
@@ -158,7 +155,7 @@ const AlbumTile = (props: AlbumTileProps) => {
         />
         <Typography variant="h5">{album.collectionName}</Typography>
         <Typography>${album.collectionPrice}</Typography>
-        {userInfo[0].User_Type == UserType.sponsor ? <Button variant = "outlined" onClick={() => addToCatalog(album.collectionId)}>Add to Catalog</Button> : null}
+        {userInfo[0]['User_Type'] == UserType.sponsor ? <Button variant = "outlined" onClick={() => addToCatalog(album.collectionId)}>Add to Catalog</Button> : null}
       </Box>
     </Paper>
   );

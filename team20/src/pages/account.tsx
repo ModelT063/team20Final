@@ -2,8 +2,8 @@ import Navbar from '../components/Navbar';
 import { Auth } from "aws-amplify";
 import React, { Component, useState, useEffect } from 'react';
 import { UserInfo, UserType } from '@/types/user';
-import { getID, getInfo } from '@/utils/userService';
 import NotFoundPage from '@/components/404'
+import { CircularProgress } from '@mui/material';
 
 class Register extends Component {
 
@@ -85,7 +85,8 @@ class Register extends Component {
   }
 
   render() {
-    return ( parseInt(this.state.userType) != UserType.admin ? <NotFoundPage/> :
+    console.log(this.state.userType);
+    return ( this.state.userType == "" ? <><Navbar/><CircularProgress/></>: parseInt(this.state.userType) != UserType.admin ? <NotFoundPage/> :
       <>
       <Navbar />
       <section className="section auth">
