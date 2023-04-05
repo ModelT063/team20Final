@@ -29,4 +29,5 @@ export type iTunesAlbum = {
   currency: string;
   releaseDate: Date;
   primaryGenreName: string;
+  button: number;
 };

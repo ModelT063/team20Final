@@ -7,13 +7,16 @@ import {
   Typography,
   Button,
   Grid,
-  Popover
+  Popover,
+  CircularProgress
 } from "@mui/material";
 import Navbar from "../components/Navbar";
 import { AlignHorizontalRight, Colorize, Filter, Filter1, FilterList, Fullscreen, Message, Search, ShoppingCart, ShoppingCartCheckout} from "@mui/icons-material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { iTunesAlbum } from "@/types/catalogTypes";
 import { getAlbumsFromiTunes } from "@/utils/catalogService";
+import { getID, getInfo } from "@/utils/userService";
+import { UserInfo, UserType } from "@/types/user";
 
 export default function Account() {
   const [searchResults, setSearchResults] = useState<iTunesAlbum[]>([]);
@@ -96,6 +99,12 @@ type AlbumTileProps = {
 
 const AlbumTile = (props: AlbumTileProps) => {
   const album = props.album;
+  const [userID, setUserID] = useState<string>("");
+  const [userInfo, setUserInfo] = useState<UserInfo[]>([]);
+  useEffect( () => {
+    getID().then((data) => setUserID(data));
+    getInfo().then((data) => setUserInfo(data));
+  }, []);
 
   const addToCatalog = async (id: number) => {
     // would need to get the sponsor user's organization ID in this part by calling
@@ -126,8 +135,7 @@ const AlbumTile = (props: AlbumTileProps) => {
       body: JSON.stringify(updatedCatalog)
     });
   }
-
-  return (
+  return ( userInfo.length == 0 ? <CircularProgress/> :
     <Paper
       sx={{
         padding: "8px",
@@ -150,7 +158,7 @@ const AlbumTile = (props: AlbumTileProps) => {
         />
         <Typography variant="h5">{album.collectionName}</Typography>
         <Typography>${album.collectionPrice}</Typography>
-        <Button variant = "outlined" onClick={() => addToCatalog(album.collectionId)}>Add to Catalog</Button>
+        {userInfo[0].User_Type == UserType.sponsor ? <Button variant = "outlined" onClick={() => addToCatalog(album.collectionId)}>Add to Catalog</Button> : null}
       </Box>
     </Paper>
   );

@@ -6,12 +6,14 @@ import { getID, getInfo } from '@/utils/userService';
 import NotFoundPage from '@/components/404'
 
 class Register extends Component {
+
   state = {
     name: "",
     username: "",
     password: "",
     confirmpassword: "",
     userType: "",
+    userID: "",
     errors: {
       cognito: null,
       blankfield: false,
@@ -73,14 +75,13 @@ class Register extends Component {
     //document.getElementById(event.target.id).classList.remove("is-danger");
   }
 
-  loadData = () => {
-    const [userID, setUserID] = useState<string>("");
-    const [userInfo, setUserInfo] = useState<UserInfo[]>([]);
-    useEffect( () => {
-      getID().then((data) => setUserID(data));
-      getInfo().then((data) => setUserInfo(data));
-      this.state.userType = userInfo[0].User_Type.toString()
-    }, [userID, setUserInfo, setUserID]);
+  componentDidMount() {
+    Auth.currentAuthenticatedUser().then( async (data) => {
+      this.state.userID = await data.username;
+      const res = await fetch(`http://localhost:3000/api/users/read/${this.state.userID}`)
+      const info = await res.json();
+      this.setState({userType: info[0].User_Type})
+    });
   }
 
   render() {
