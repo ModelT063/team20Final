@@ -18,7 +18,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             "a.User_ID = ?", 
             [
                 1,
-                parseInt(req.query.id as string)
+                req.query.id as string
             ], (error: any, results: any, fields: any) => {
                 if (error) throw error;
                 return res.status(200).json(results);
