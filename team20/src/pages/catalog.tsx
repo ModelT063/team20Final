@@ -15,7 +15,6 @@ import { AlignHorizontalRight, Colorize, Filter, Filter1, FilterList, Fullscreen
 import { useState, useEffect } from "react";
 import { iTunesAlbum } from "@/types/catalogTypes";
 import { getAlbumsFromiTunes } from "@/utils/catalogService";
-import { getID, getInfo } from "@/utils/userService";
 import { UserInfo, UserType } from "@/types/user";
 import { useRecoilValue } from "recoil";
 import { userInfoState } from "@/lib/userData";
@@ -33,7 +32,9 @@ export default function Account() {
   function checkout_prompt(): void {  
     prompt("You have 0 items in your cart.\n Click 'OK' to checkout\n");
 }
-
+  let info = useRecoilValue(userInfoState);
+  console.log(info);
+  let type = info[0]['User_Type']; // get current user info from recoil and grab the user type for props
   return (
     <>
       <div>
@@ -49,9 +50,9 @@ export default function Account() {
         Filter <FilterList/>
       </IconButton>
 
-      <IconButton onClick={() => checkout_prompt()}>
+      {type == UserType.driver && <IconButton onClick={() => checkout_prompt()}>
         Cart <ShoppingCart/>
-      </IconButton>
+      </IconButton>}
 
         </Grid>
       </h1>
@@ -87,7 +88,7 @@ export default function Account() {
               Please type a search term and click the magnifying glass
             </Typography>
           ) : (
-            searchResults.map((v) => <AlbumTile album={v} />)
+            searchResults.map((v) => <AlbumTile album={v} type={type} />)
           )}
         </Grid>
       </Box>
@@ -97,11 +98,16 @@ export default function Account() {
 
 type AlbumTileProps = {
   album: iTunesAlbum;
+  type: string;
 };
 
 const AlbumTile = (props: AlbumTileProps) => {
   const album = props.album;
-  let userInfo = useRecoilValue(userInfoState);
+  const type = parseInt(props.type as string);
+
+  const addToCart = async (id: number) => {
+
+  }
 
   const addToCatalog = async (id: number) => {
     // would need to get the sponsor user's organization ID in this part by calling
@@ -132,7 +138,7 @@ const AlbumTile = (props: AlbumTileProps) => {
       body: JSON.stringify(updatedCatalog)
     });
   }
-  return ( userInfo.length == 0 ? <CircularProgress/> :
+  return (
     <Paper
       sx={{
         padding: "8px",
@@ -155,7 +161,7 @@ const AlbumTile = (props: AlbumTileProps) => {
         />
         <Typography variant="h5">{album.collectionName}</Typography>
         <Typography>${album.collectionPrice}</Typography>
-        {userInfo[0]['User_Type'] == UserType.sponsor ? <Button variant = "outlined" onClick={() => addToCatalog(album.collectionId)}>Add to Catalog</Button> : null}
+        {type == UserType.sponsor ? <Button variant = "outlined" onClick={() => addToCatalog(album.collectionId)}>Add to Catalog</Button> : type == UserType.driver ? <Button variant = "outlined" onClick={() => addToCart(album.collectionId)}>Add to Cart</Button> : null}
       </Box>
     </Paper>
   );

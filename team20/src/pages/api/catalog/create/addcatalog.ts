@@ -16,7 +16,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             [
                 0,
                 newCatalog.Catalog_Name,
-                '{}',
+                '{"ids": []}',
             ], (error: any, results: any, fields: any) => {
                 if (error) throw error;
                 return res.status(200).json(results);
