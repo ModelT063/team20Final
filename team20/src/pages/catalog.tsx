@@ -106,7 +106,29 @@ const AlbumTile = (props: AlbumTileProps) => {
   const type = parseInt(props.type as string);
 
   const addToCart = async (id: number) => {
-
+    let cognitoUser = JSON.parse(localStorage.getItem('CognitoUser') || '{}');
+    let userID = cognitoUser.username;
+    const res = await fetch(`http://localhost:3000/api/users/read/${userID}`);
+    let userData = await res.json();
+    userData[0].Cart.push(id);
+    const updatedUser = {
+      Email: userData[0].Email,
+      User_Type: userData[0].User_Type,
+      User_Status: 1,
+      F_Name: userData[0].F_Name,
+      L_Name: userData[0].L_Name,
+      Points: userData[0].Points,
+      Cart: {
+        ids: userData[0].Cart
+      }
+    };
+    fetch(`http://localhost:3000/api/users/update/${userID}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedUser)
+    });
   }
 
   const addToCatalog = async (id: number) => {
