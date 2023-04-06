@@ -33,7 +33,6 @@ export default function Account() {
     prompt("You have 0 items in your cart.\n Click 'OK' to checkout\n");
 }
   let info = useRecoilValue(userInfoState);
-  console.log(info);
   let type = info[0]['User_Type']; // get current user info from recoil and grab the user type for props
   return (
     <>
