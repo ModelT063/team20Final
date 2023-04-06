@@ -15,6 +15,7 @@ export type UserInfo = {
   F_Name: string;
   L_Name: string;
   Points: number;
+  Cart: JSON;
 }
 
 export type User = {
@@ -25,4 +26,5 @@ export type User = {
   F_Name: string;
   L_Name: string;
   Points: number;
+  Cart: JSON;
 };

@@ -6,10 +6,19 @@ import { withAuthenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 
 import awsExports from "../../aws-exports-fixed";
+import { useRecoilState } from "recoil";
+import { userInfoState, userID } from "@/lib/userData";
+import { useEffect } from "react";
+import { getID, getInfo } from "@/utils/userService";
 Amplify.configure(awsExports);
 
 function App({ signOut, user }: { signOut: any; user: any }) {
-  sessionStorage.setItem('CognitoUser', user);
+  const [info, setInfo] = useRecoilState(userInfoState)
+  const [id, setID] = useRecoilState(userID);
+  useEffect( () => {
+    getID().then((data) => setID(data));
+    getInfo().then((data) => setInfo(data));
+  }, [])
   const name = user.attributes.name.split(" ");
   const data = {
     User_ID: user.attributes.sub, Email: user.attributes.email,

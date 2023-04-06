@@ -1,13 +1,19 @@
 import Navbar from '../components/Navbar';
 import { Auth } from "aws-amplify";
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
+import { UserType } from '@/types/user';
+import NotFoundPage from '@/components/404'
+import { CircularProgress } from '@mui/material';
 
 class Register extends Component {
+
   state = {
     name: "",
     username: "",
     password: "",
     confirmpassword: "",
+    userType: "",
+    userID: "",
     errors: {
       cognito: null,
       blankfield: false,
@@ -22,9 +28,11 @@ class Register extends Component {
     const { name, username, password } = this.state;
     try {
         const signUpResponse = await Auth.signUp({
-            name,
             username,
-            password
+            password,
+            attributes: {
+                name
+            }
         });
         console.log(signUpResponse);
 
@@ -69,8 +77,18 @@ class Register extends Component {
     //document.getElementById(event.target.id).classList.remove("is-danger");
   }
 
+  componentDidMount() {
+    Auth.currentAuthenticatedUser().then( async (data) => {
+      this.state.userID = await data.username;
+      const res = await fetch(`http://localhost:3000/api/users/read/${this.state.userID}`)
+      const info = await res.json();
+      this.setState({userType: info[0].User_Type})
+    });
+  }
+
   render() {
-    return (
+    console.log(this.state.userType);
+    return ( this.state.userType == "" ? <><Navbar/><CircularProgress/></>: parseInt(this.state.userType) != UserType.admin ? <NotFoundPage/> :
       <>
       <Navbar />
       <section className="section auth">
