@@ -7,17 +7,13 @@ import {
   Typography,
   Button,
   Grid,
-  Popover,
-  CircularProgress
+  Popover
 } from "@mui/material";
 import Navbar from "../components/Navbar";
 import { AlignHorizontalRight, Colorize, Filter, Filter1, FilterList, Fullscreen, Message, Search, ShoppingCart, ShoppingCartCheckout} from "@mui/icons-material";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { iTunesAlbum } from "@/types/catalogTypes";
 import { getAlbumsFromiTunes } from "@/utils/catalogService";
-import { UserInfo, UserType } from "@/types/user";
-import { useRecoilValue } from "recoil";
-import { userInfoState } from "@/lib/userData";
 
 export default function Account() {
   const [searchResults, setSearchResults] = useState<iTunesAlbum[]>([]);
@@ -32,9 +28,7 @@ export default function Account() {
   function checkout_prompt(): void {  
     prompt("You have 0 items in your cart.\n Click 'OK' to checkout\n");
 }
-  let info = useRecoilValue(userInfoState);
-  console.log(info);
-  let type = info[0]['User_Type']; // get current user info from recoil and grab the user type for props
+
   return (
     <>
       <div>
@@ -51,9 +45,10 @@ export default function Account() {
       onClick={() => filter_prompt()}
       >Filter</Button>
 
-      <IconButton onClick={() => checkout_prompt()}>
-        Cart <ShoppingCart/>
-      </IconButton>
+    <Button 
+      endIcon={<ShoppingCart/>}
+      onClick={() => checkout_prompt()}
+      >Cart</Button>
 
         </Grid>
       </h1>
@@ -89,7 +84,7 @@ export default function Account() {
               Please type a search term and click the magnifying glass
             </Typography>
           ) : (
-            searchResults.map((v) => <AlbumTile album={v} type={type} />)
+            searchResults.map((v) => <AlbumTile album={v} />)
           )}
         </Grid>
       </Box>
@@ -99,21 +94,15 @@ export default function Account() {
 
 type AlbumTileProps = {
   album: iTunesAlbum;
-  type: string;
 };
 
 const AlbumTile = (props: AlbumTileProps) => {
   const album = props.album;
-  const type = parseInt(props.type as string);
-
-  const addToCart = async (id: number) => {
-
-  }
 
   const addToCatalog = async (id: number) => {
     // would need to get the sponsor user's organization ID in this part by calling
     // api in sponsor_driver_relationship to get 
-    let cognitoUser = JSON.parse(localStorage.getItem('CognitoUser') || '{}');
+    let cognitoUser = JSON.parse(sessionStorage.getItem('CognitoUser') || '{}');
     let userID = cognitoUser.username;
     const res = await fetch(`http://localhost:3000/api/sponsor_driver_relationship/read/${userID}`)
     let userData = await res.json();
@@ -139,6 +128,7 @@ const AlbumTile = (props: AlbumTileProps) => {
       body: JSON.stringify(updatedCatalog)
     });
   }
+
   return (
     <Paper
       sx={{
@@ -163,6 +153,7 @@ const AlbumTile = (props: AlbumTileProps) => {
         <Typography variant="h5">{album.collectionName}</Typography>
         <Typography>${album.collectionPrice}</Typography>
         <Button variant = "outlined" onClick={() => addToCatalog(album.collectionId)}>Add to Catalog</Button>
+        <Button variant = "outlined" onClick={() => addToCatalog(album.collectionId)}>Delete From Catalog</Button>
       </Box>
     </Paper>
   );

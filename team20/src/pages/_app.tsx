@@ -7,10 +7,9 @@ import { withAuthenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 
 import awsExports from "../../aws-exports-fixed";
-import { RecoilRoot } from 'recoil';
 Amplify.configure(awsExports);
 
 export default function App({ Component, pageProps }: AppProps) {
-  return <RecoilRoot><Component {...pageProps} /></RecoilRoot>
+  return <Component {...pageProps} />
 }
 
