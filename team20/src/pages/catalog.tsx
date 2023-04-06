@@ -40,13 +40,15 @@ export default function Account() {
         justifyContent="right"
         width="100%">
 
-      <IconButton onClick={() => filter_prompt()}>
-        Filter <FilterList/>
-      </IconButton>
+    <Button 
+      endIcon={<FilterList/>}
+      onClick={() => filter_prompt()}
+      >Filter</Button>
 
-      <IconButton onClick={() => checkout_prompt()}>
-        Cart <ShoppingCart/>
-      </IconButton>
+    <Button 
+      endIcon={<ShoppingCart/>}
+      onClick={() => checkout_prompt()}
+      >Cart</Button>
 
         </Grid>
       </h1>
@@ -151,6 +153,7 @@ const AlbumTile = (props: AlbumTileProps) => {
         <Typography variant="h5">{album.collectionName}</Typography>
         <Typography>${album.collectionPrice}</Typography>
         <Button variant = "outlined" onClick={() => addToCatalog(album.collectionId)}>Add to Catalog</Button>
+        <Button variant = "outlined" onClick={() => addToCatalog(album.collectionId)}>Delete From Catalog</Button>
       </Box>
     </Paper>
   );
