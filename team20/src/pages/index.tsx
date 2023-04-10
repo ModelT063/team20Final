@@ -9,15 +9,17 @@ import awsExports from "../../aws-exports-fixed";
 import { useRecoilState } from "recoil";
 import { userInfoState, userID, userOrganizations } from "@/lib/userData";
 import { useEffect } from "react";
-import { getID, getInfo } from "@/utils/userService";
+import { getID, getInfo, getOrgs } from "@/utils/userService";
 Amplify.configure(awsExports);
 
 function App({ signOut, user }: { signOut: any; user: any }) {
   const [info, setInfo] = useRecoilState(userInfoState)
   const [id, setID] = useRecoilState(userID);
+  const [orgs, setOrgs] = useRecoilState(userOrganizations)
   useEffect( () => {
     getID().then((data) => setID(data));
     getInfo().then((data) => setInfo(data));
+    getOrgs().then((data) => setOrgs(data));
   }, [])
   const name = user.attributes.name.split(" ");
   const data = {

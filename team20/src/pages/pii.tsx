@@ -1,17 +1,13 @@
 import Navbar from "../components/Navbar";
 import { CircularProgress } from "@mui/material";
-import { userInfoState } from "@/lib/userData";
+import { userInfoState, userOrganizations } from "@/lib/userData";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { useEffect } from "react";
 import { getOrgs } from "@/utils/userService";
-import { userOrganizations } from "@/lib/userData";
 
 export default function pii() {
   let userInfo = useRecoilValue(userInfoState);
-  const [orgs, setOrgs] = useRecoilState(userOrganizations)
-  useEffect( () => {
-    getOrgs().then((data) => setOrgs(data));
-  }, []);
+  let orgs = useRecoilValue(userOrganizations)
   console.log(orgs);
   return (userInfo[0] == undefined ? <CircularProgress/> :
     <>
