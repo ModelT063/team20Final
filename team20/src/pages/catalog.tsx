@@ -183,7 +183,8 @@ const AlbumTile = (props: AlbumTileProps) => {
         />
         <Typography variant="h5">{album.collectionName}</Typography>
         <Typography>${album.collectionPrice}</Typography>
-        <Button variant = "outlined" onClick={() => addToCatalog(album.collectionId)}>Add to Catalog</Button>
+        {type == UserType.sponsor ? <Button variant = "outlined" onClick={() => addToCatalog(album.collectionId)}>Add to Catalog</Button> :
+        type == UserType.driver ? <Button variant = "outlined" onClick={() => addToCart(album.collectionId)}>Add to Cart</Button> : null}
       </Box>
     </Paper>
   );
