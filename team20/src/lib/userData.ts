@@ -5,6 +5,11 @@ export const userInfoState = atom({
     default: []
 });
 
+export const userOrganizations = atom({
+    key: "userOrganizations",
+    default: []
+});
+
 export const userID = atom({
     key: "userID",
     default: ""

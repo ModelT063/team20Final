@@ -7,7 +7,7 @@ import "@aws-amplify/ui-react/styles.css";
 
 import awsExports from "../../aws-exports-fixed";
 import { useRecoilState } from "recoil";
-import { userInfoState, userID } from "@/lib/userData";
+import { userInfoState, userID, userOrganizations } from "@/lib/userData";
 import { useEffect } from "react";
 import { getID, getInfo } from "@/utils/userService";
 Amplify.configure(awsExports);

@@ -16,3 +16,14 @@ export async function getInfo() {
     }
     return null;
 }
+
+export async function getOrgs() {
+  let userID;
+  await getID().then((data) => userID = data);
+  if (userID != "") {
+    const res = await fetch(`http://localhost:3000/api/sponsor_driver_relationship/read/${userID}`);
+    const orgs = await res.json();
+    return orgs;
+  }
+  return null;
+}
