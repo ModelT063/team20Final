@@ -13,7 +13,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         db.connect( (err) => {
             if (err) throw err;
             db.query("UPDATE Users SET Email = ?, User_Type = ?, User_Status = ?," +
-            "F_Name = ?, L_Name = ?, Points = ? WHERE User_ID = ?", 
+            "F_Name = ?, L_Name = ?, Points = ?, Cart = ? WHERE User_ID = ?", 
             [
                 updatedUser.Email,
                 updatedUser.User_Type,
@@ -21,6 +21,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 updatedUser.F_Name,
                 updatedUser.L_Name,
                 updatedUser.Points,
+                JSON.stringify(updatedUser.Cart),
                 (req.query.id as string)
             ], (error: any, results: any, fields: any) => {
                 if (error) throw error;

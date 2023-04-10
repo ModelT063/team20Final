@@ -9,7 +9,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         db.connect( (err) => {
             if (err) throw err;
-            db.query("SELECT Email, User_Type, F_Name, L_Name, Points, Cart FROM Users " +
+            db.query("SELECT Email, User_Type, F_Name, L_Name, Points, Cart->'$.ids' as Cart FROM Users " +
             " WHERE User_ID = ?", 
             [
                 (req.query.id as string),
