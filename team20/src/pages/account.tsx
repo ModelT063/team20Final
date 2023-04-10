@@ -85,8 +85,7 @@ class Register extends Component {
   }
 
   render() {
-    console.log(this.state.userType);
-    return ( this.state.userType == "" ? <><Navbar/><CircularProgress/></>: parseInt(this.state.userType) != UserType.admin ? <NotFoundPage/> :
+    return ( this.state.userType === "" ? <><Navbar/><CircularProgress/></>: parseInt(this.state.userType) != UserType.admin ? <NotFoundPage/> :
       <>
       <Navbar />
       <section className="section auth">
