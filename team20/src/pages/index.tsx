@@ -15,25 +15,28 @@ import Box from '@mui/material/Box';
 Amplify.configure(awsExports);
 
 function App({ signOut, user }: { signOut: any; user: any }) {
-  const [info, setInfo] = useRecoilState(userInfoState)
+  const [info, setInfo] = useRecoilState(userInfoState);
   const [id, setID] = useRecoilState(userID);
-  const [orgs, setOrgs] = useRecoilState(userOrganizations)
-  useEffect( () => {
+  const [orgs, setOrgs] = useRecoilState(userOrganizations);
+  useEffect(() => {
     getID().then((data) => setID(data));
     getInfo().then((data) => setInfo(data));
     getOrgs().then((data) => setOrgs(data));
-  }, [])
+  }, []);
   const name = user.attributes.name.split(" ");
   const data = {
-    User_ID: user.attributes.sub, Email: user.attributes.email,
-    F_Name: name[0], L_Name: name[1]
+    User_ID: user.attributes.sub,
+    Email: user.attributes.email,
+    F_Name: name[0],
+    L_Name: name[1],
   };
+
   fetch("http://localhost:3000/api/users/create/adduser", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(data)
+    body: JSON.stringify(data),
   })
     .then((response) => response.json())
     .then((data) => {
@@ -42,6 +45,7 @@ function App({ signOut, user }: { signOut: any; user: any }) {
     .catch((error) => {
       console.error("Error: ", error);
     });
+
   return (
     <>
       <div><Navbar /></div>

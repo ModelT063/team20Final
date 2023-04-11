@@ -21,3 +21,28 @@ export const getAlbumsFromiTunes = async (
     .then((response) => response.json())
     .catch((e) => console.log(e));
 };
+
+export const getCatalogAlbums = async (
+  catalog: number[]
+): Promise<iTunesResult> => {
+
+  const idString = "";
+  catalog.forEach((v) => idString.concat(`${v},`))
+
+  return fetch(
+    "https://itunes.apple.com/lookup?" +
+      new URLSearchParams({
+        id: idString,
+      }),
+    {
+      method: "GET",
+      headers: {
+        "content-type": "application/json;charset=UTF-8",
+      },
+    }
+  )
+    .then((response) => response.json())
+    .catch((e) => console.log(e));
+};
+
+
