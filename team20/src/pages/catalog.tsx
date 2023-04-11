@@ -11,7 +11,7 @@ import {
   CircularProgress
 } from "@mui/material";
 import Navbar from "../components/Navbar";
-import { AlignHorizontalRight, Colorize, Filter, Filter1, FilterList, Fullscreen, Message, Search, ShoppingCart, ShoppingCartCheckout} from "@mui/icons-material";
+import { AlignHorizontalRight, Colorize, Filter, Filter1, FilterList, Fullscreen, Message, Search, ShoppingCart, ShoppingCartCheckout, DeleteForeverRounded} from "@mui/icons-material";
 import { useState, useEffect } from "react";
 import { iTunesAlbum } from "@/types/catalogTypes";
 import { getAlbumsFromiTunes } from "@/utils/catalogService";
@@ -32,6 +32,9 @@ export default function Account() {
   function checkout_prompt(): void {  
     prompt("You have 0 items in your cart.\n Click 'OK' to checkout\n");
 }
+function delete_prompt(): void {  
+  prompt("Are you sure want to delete this item from the catalog\n");
+}
   let info = useRecoilValue(userInfoState);
   let type = info[0]['User_Type']; // get current user info from recoil and grab the user type for props
   return (
@@ -50,9 +53,10 @@ export default function Account() {
       onClick={() => filter_prompt()}
       >Filter</Button>
 
-      <IconButton onClick={() => checkout_prompt()}>
-        Cart <ShoppingCart/>
-      </IconButton>
+    <Button 
+      endIcon={<ShoppingCart/>}
+      onClick={() => checkout_prompt()}
+      >Filter</Button>
 
         </Grid>
       </h1>
@@ -160,6 +164,10 @@ const AlbumTile = (props: AlbumTileProps) => {
       body: JSON.stringify(updatedCatalog)
     });
   }
+  function delete_prompt(): void {
+    throw new Error("Function not implemented.");
+  }
+
   return (
     <Paper
       sx={{
@@ -185,6 +193,7 @@ const AlbumTile = (props: AlbumTileProps) => {
         <Typography>${album.collectionPrice}</Typography>
         {type == UserType.sponsor ? <Button variant = "outlined" onClick={() => addToCatalog(album.collectionId)}>Add to Catalog</Button> :
         type == UserType.driver ? <Button variant = "outlined" onClick={() => addToCart(album.collectionId)}>Add to Cart</Button> : null}
+        <Button endIcon={<DeleteForeverRounded/>} onClick={() => delete_prompt()} >Filter</Button>
       </Box>
     </Paper>
   );
