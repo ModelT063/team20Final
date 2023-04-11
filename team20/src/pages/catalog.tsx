@@ -29,7 +29,6 @@ import { useRecoilValue } from "recoil";
 import { userInfoState, userID } from "@/lib/userData";
 
 export default function Account() {
-  // make sure proper things show up depending on the user that's logged in
   const [searchResults, setsearchResults] = useState<iTunesAlbum[]>([]);
   const [sponsorCatalog, setSponsorCatalog] = useState<number[]>([]);
 
@@ -79,7 +78,6 @@ export default function Account() {
   }, [loggedInUserID]);
 
   // use this to set searchResults to be the albums found in sponsorCatalog
-  // test if this works
   const displaySponsorCatalog = async () => {
     const results = await getCatalogAlbums(sponsorCatalog);
     setsearchResults(results.results);
@@ -154,10 +152,6 @@ export default function Account() {
       }
     );
   };
-
-  function delete_prompt(): void {
-    throw new Error("Function not implemented.");
-  }
 
   return (
     <>
@@ -292,12 +286,6 @@ const AlbumTile = (props: AlbumTileProps) => {
               Add to Cart
             </Button>
           )}
-          <Button
-            endIcon={<DeleteForeverRounded />}
-            onClick={() => delete_prompt()}
-          >
-            Filter
-          </Button>
         </div>
       </Box>
     </Paper>
