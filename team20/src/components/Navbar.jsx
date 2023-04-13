@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import NavItem from "./NavItem";
+import UIMode from "./UIMode";
 import Link from "next/link";
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import {Avatar, Box, Paper, Typography, Button, Menu} from "@mui/material";
+import { prototype } from "events";
 
 const MENU_LIST = [
-  { text: "Home", href: "/" },
-  { text: "Register User", href: "/account" },
-  { text: "Personal Information", href: "/pii" },
+  // { text: "Home", href: "/" },
+  { text: "Audit Reports", href: "/audit"},
   { text: "Catalog", href: "/catalog" },
+  { text: "Register User", href: "/account" },
+  { text: "Personal Information", href: "/pii" },  
 ];
+
 const Navbar = () => {
   const [navActive, setNavActive] = useState(null);
   const [activeIdx, setActiveIdx] = useState(-1);
@@ -17,7 +23,8 @@ const Navbar = () => {
       <nav className={`nav`}>
         <Link legacyBehavior href={"/"}>
             <a>
-                <h1 className="logo">Good Drivers</h1>
+              <h1 className="logo"><Button color="inherit"
+                 endIcon={<LocalShippingIcon/>}> Good Drivers </Button></h1>     
             </a>
         </Link>
         <div
@@ -37,10 +44,14 @@ const Navbar = () => {
               }}
               key={menu.text}
             >
-              <NavItem active={activeIdx === idx} {...menu} />
+             
+              <center>
+                <NavItem active={activeIdx === idx} {...menu} />
+              </center>
             </div>
           ))}
         </div>
+        <UIMode></UIMode>
       </nav>
     </header>
   );
