@@ -5,6 +5,7 @@ import { userInfoState, userOrganizations } from "@/lib/userData";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { useState } from "react";
 import { userID } from "@/lib/userData";
+import { UserInfo } from "@/types/user";
 
 export default function pii() {
 
@@ -13,6 +14,12 @@ export default function pii() {
   const [lastName, setLastName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [isUpdated, setIsUpdated] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [info, setInfo] = useRecoilState(userInfoState);
+
+  let userInfo = useRecoilValue(userInfoState);
+  let id = useRecoilValue(userID);
+  let orgs = useRecoilValue(userOrganizations)
 
   const titleStyles = {
     display: "flex",
@@ -39,6 +46,7 @@ export default function pii() {
   
   const handleSubmit = () => {
     if (email == '' || firstName == '' || lastName == '') {
+      setIsError(true);
       return;
     }
     let updatedUser = {
@@ -52,6 +60,7 @@ export default function pii() {
         ids: userInfo[0]['Cart']
       }
     }
+    setInfo([updatedUser] as any)
     fetch(`http://localhost:3000/api/users/update/${id}`, {
       method: "PUT",
       headers: {
@@ -61,9 +70,7 @@ export default function pii() {
     });
     setIsUpdated(true);
   }
-  let userInfo = useRecoilValue(userInfoState);
-  let id = useRecoilValue(userID);
-  let orgs = useRecoilValue(userOrganizations)
+
   return (userInfo[0] == undefined ? <CircularProgress/> :
     <>
       <div>
@@ -121,7 +128,7 @@ export default function pii() {
         </DialogContent>
         <DialogActions style={actionStyles}>
           <Button onClick={handleSubmit} variant = 'contained'>Save</Button>
-          {isUpdated ? <Alert style = {alertStyles} severity = 'success'>Your Information was Updated!</Alert> : null}
+          {isUpdated ? <Alert style = {alertStyles} severity = 'success'>Your Information was Updated!</Alert> : isError ?  <Alert style = {alertStyles} severity = 'error'>Please fill out each field</Alert> : null}
         </DialogActions>
       </Dialog>
     </>
