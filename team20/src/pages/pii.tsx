@@ -38,6 +38,9 @@ export default function pii() {
   }
   
   const handleSubmit = () => {
+    if (email == '' || firstName == '' || lastName == '') {
+      return;
+    }
     let updatedUser = {
       Email: email,
       User_Type: userInfo[0]['User_Type'],
@@ -92,7 +95,6 @@ export default function pii() {
             }}
           />
           <TextField 
-            autoFocus
             margin="dense"
             id="lastname"
             label="Last Name"
@@ -105,7 +107,6 @@ export default function pii() {
             }}
           />
           <TextField 
-            autoFocus
             margin="dense"
             id="email"
             label="Email Address"
