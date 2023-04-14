@@ -29,6 +29,7 @@ import { useRecoilValue } from "recoil";
 import { userInfoState, userID } from "@/lib/userData";
 
 export default function Account() {
+  // make sure proper things show up depending on the user that's logged in
   const [searchResults, setsearchResults] = useState<iTunesAlbum[]>([]);
   const [sponsorCatalog, setSponsorCatalog] = useState<number[]>([]);
 
@@ -78,6 +79,7 @@ export default function Account() {
   }, [loggedInUserID]);
 
   // use this to set searchResults to be the albums found in sponsorCatalog
+  // test if this works
   const displaySponsorCatalog = async () => {
     const results = await getCatalogAlbums(sponsorCatalog);
     setsearchResults(results.results);
@@ -108,6 +110,7 @@ export default function Account() {
       body: JSON.stringify(updatedUser),
     });
   };
+
   const addToCatalog = async (id: number) => {
     // would need to get the sponsor user's organization ID in this part by calling
     // api in sponsor_driver_relationship to get
@@ -155,6 +158,7 @@ export default function Account() {
   function delete_prompt(): void {
     throw new Error("Function not implemented.");
   }
+
   return (
     <>
       <Navbar />
@@ -222,6 +226,7 @@ export default function Account() {
                     userType={userType}
                     catalog={[]}
                     addToCatalog={addToCatalog}
+                    addToCart={addToCart}
                   />
                 ))
               )}
@@ -238,6 +243,7 @@ type AlbumTileProps = {
   userType: number;
   catalog: number[];
   addToCatalog: (id: number) => void;
+  addToCart: (id: number) => void;
 };
 
 const AlbumTile = (props: AlbumTileProps) => {
@@ -281,7 +287,7 @@ const AlbumTile = (props: AlbumTileProps) => {
           ) : (
             <Button
               variant="outlined"
-              onClick={() => {}} //addToCart(album.collectionId)}
+              onClick={() => props.addToCart(album.collectionId)}
             >
               Add to Cart
             </Button>
