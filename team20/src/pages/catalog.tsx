@@ -17,6 +17,7 @@ import { useRecoilValue } from "recoil";
 import { userInfoState, userID } from "@/lib/userData";
 
 export default function Account() {
+  // make sure proper things show up depending on the user that's logged in
   const [searchResults, setsearchResults] = useState<iTunesAlbum[]>([]);
   const [sponsorCatalog, setSponsorCatalog] = useState<number[]>([]);
 
@@ -66,13 +67,16 @@ export default function Account() {
   }, [loggedInUserID]);
 
   // use this to set searchResults to be the albums found in sponsorCatalog
+  // test if this works
   const displaySponsorCatalog = async () => {
     const results = await getCatalogAlbums(sponsorCatalog);
     setsearchResults(results.results);
   };
 
+  // implement this
   const addToCart = async (id: number) => {};
 
+  // check if this actually works and how much it can do
   const addToCatalog = async (id: number) => {
     // would need to get the sponsor user's organization ID in this part by calling
     // api in sponsor_driver_relationship to get
