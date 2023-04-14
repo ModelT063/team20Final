@@ -111,6 +111,7 @@ export default function Account() {
     });
   };
 
+  // check if this actually works and how much it can do
   const addToCatalog = async (id: number) => {
     // would need to get the sponsor user's organization ID in this part by calling
     // api in sponsor_driver_relationship to get
@@ -294,7 +295,7 @@ const AlbumTile = (props: AlbumTileProps) => {
           )}
           <Button
             endIcon={<DeleteForeverRounded />}
-            onClick={() => delete_prompt()}
+            onClick={() => {}} //delete_prompt()}
           >
             Filter
           </Button>
