@@ -3,15 +3,17 @@ import NavItem from "./NavItem";
 import UIMode from "./UIMode";
 import Link from "next/link";
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
 import {Avatar, Box, Paper, Typography, Button, Menu} from "@mui/material";
 import { prototype } from "events";
 
+
 const MENU_LIST = [
   // { text: "Home", href: "/" },
-  { text: "Audit Reports", href: "/audit"},
+  { text: "Account", href: "/pii" },  
+  { text: "Audits", href: "/audit"},
   { text: "Catalog", href: "/catalog" },
-  { text: "Register User", href: "/account" },
-  { text: "Personal Information", href: "/pii" },  
+  { text: "Register", href: "/account" },
 ];
 
 const Navbar = () => {
@@ -23,8 +25,8 @@ const Navbar = () => {
       <nav className={`nav`}>
         <Link legacyBehavior href={"/"}>
             <a>
-              <h1 className="logo"><Button color="inherit"
-                 endIcon={<LocalShippingIcon/>}> Good Drivers </Button></h1>     
+              <box><h1 className="logo"><Button color="inherit"
+                 endIcon={<LocalShippingIcon/>}> Good Drivers </Button></h1> </box>    
             </a>
         </Link>
         <div
@@ -44,14 +46,14 @@ const Navbar = () => {
               }}
               key={menu.text}
             >
-             
               <center>
                 <NavItem active={activeIdx === idx} {...menu} />
               </center>
             </div>
           ))}
         </div>
-        <UIMode></UIMode>
+        {/* <UIMode></UIMode> */}
+        <Button endIcon={<UIMode/>}></Button>
       </nav>
     </header>
   );

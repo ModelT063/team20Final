@@ -5,11 +5,15 @@ import { Grid } from '@aws-amplify/ui-react';
 export default function Audit() {
   return (
         <>
-          <div>
-            <Navbar/>
-          </div>
+          <div><Navbar/></div>
           <h1><center>Audit Reports</center></h1>
-          <Grid></Grid>
+          <center><table>
+          <tr>
+            <th>#</th> 
+            <th>Date</th> 
+            <th>Report Type</th> 
+            <th>Reason</th></tr>
+          </table></center>
         </>
   );
 }
