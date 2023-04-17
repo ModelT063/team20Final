@@ -28,6 +28,8 @@ export default function pii() {
     marginTop: "1rem"
   }
 
+  const tableStyles = alertStyles;
+
   const actionStyles = {
     justifyContent: "center",
     alignItems: 'center',
@@ -74,7 +76,8 @@ export default function pii() {
         <Navbar />
       </div>
       <h1><center>User Information</center></h1>
-      <center><table>
+      <center>{userInfo[0] && <IconButton onClick = {handleOpen} children = {<Edit />}/>}</center>
+      <center><table style= {tableStyles}>
         <tr>
         <th>Name</th> 
         <th>Email</th> 
@@ -90,7 +93,6 @@ export default function pii() {
           <td>{orgs.length > 0  ?  orgs.map((org) => <li>{org['Organization_Name']}</li>) : "You don't belong to any organizations"}</td>
         </tr>
         </table></center>
-        {userInfo[0] && <IconButton onClick = {handleOpen} children = {<Edit />}/>}
       <Dialog open={isOpen}>
         <DialogTitle style = {titleStyles}>Update Information
           <IconButton children = {<Close/>} onClick = {handleClose}/>
