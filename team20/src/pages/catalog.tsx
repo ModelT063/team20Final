@@ -27,6 +27,7 @@ import { getAlbumsFromiTunes, getCatalogAlbums } from "@/utils/catalogService";
 import { UserInfo, UserType } from "@/types/user";
 import { useRecoilValue } from "recoil";
 import { userInfoState, userID } from "@/lib/userData";
+import Link from "next/link";
 
 export default function Account() {
   // make sure proper things show up depending on the user that's logged in
@@ -34,7 +35,7 @@ export default function Account() {
   const [sponsorCatalog, setSponsorCatalog] = useState<number[]>([]);
 
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const search = (searchTerm: string) => {
+  const searchITunes = (searchTerm: string) => {
     getAlbumsFromiTunes(searchTerm).then((v) => setsearchResults(v.results));
   };
 
@@ -53,10 +54,17 @@ export default function Account() {
       : parseInt(useRecoilValue(userInfoState)[0]["User_Type"]);
   const loggedInUserID = useRecoilValue(userID);
 
-  // get the sponsor catalog values
+  // use this to set searchResults to be the albums found in sponsorCatalog
+  // test if this works
+  const displaySponsorCatalog = async () => {
+    const results = await getCatalogAlbums(sponsorCatalog);
+    setsearchResults(results.results);
+  };
+
+  // get the sponsor catalog values and set those as display values if driver
   useEffect(() => {
     if (loggedInUserID === "") {
-      console.error("Failed to get user ID, could not add to catalog");
+      console.error("Failed to get user ID, could not get catalog");
       return;
     }
 
@@ -76,19 +84,16 @@ export default function Account() {
           .catch((e) => console.log(e))
       )
       .catch((e) => console.log(e));
+
+    if (userType === UserType.driver) displaySponsorCatalog();
   }, [loggedInUserID]);
 
-  // use this to set searchResults to be the albums found in sponsorCatalog
-  // test if this works
-  const displaySponsorCatalog = async () => {
-    const results = await getCatalogAlbums(sponsorCatalog);
-    setsearchResults(results.results);
-  };
-
   const addToCart = async (id: number) => {
-    let cognitoUser = JSON.parse(localStorage.getItem("CognitoUser") || "{}");
-    let userID = cognitoUser.username;
-    const res = await fetch(`http://localhost:3000/api/users/read/${userID}`);
+    // let cognitoUser = JSON.parse(localStorage.getItem("CognitoUser") || "{}");
+    // let userID = cognitoUser.username;
+    const res = await fetch(
+      `http://localhost:3000/api/users/read/${loggedInUserID}`
+    );
     let userData = await res.json();
     userData[0].Cart.push(id);
     const updatedUser = {
@@ -102,13 +107,18 @@ export default function Account() {
         ids: userData[0].Cart,
       },
     };
-    fetch(`http://localhost:3000/api/users/update/${userID}`, {
+    fetch(`http://localhost:3000/api/users/update/${loggedInUserID}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(updatedUser),
-    });
+    })
+      .then(() => console.log("Added to cart"))
+      .catch((e) => {
+        console.log("Failed to add to cart");
+        console.log(e);
+      });
   };
 
   // check if this actually works and how much it can do
@@ -122,17 +132,25 @@ export default function Account() {
       return;
     }
 
-    const res = await fetch(
+    const userData = await fetch(
       `http://localhost:3000/api/sponsor_driver_relationship/read/${loggedInUserID}`
-    );
-    let userData = await res.json();
+    ).then((r) => {
+      return r.json().then((v) => {
+        return v;
+      });
+    });
+    // let userData = await res.json();
+    if (!userData) {
+      console.error("Failed to get user data");
+      return;
+    }
 
     // once this completes we can get the organization ID from userData using userData[x].Sponsor_Org_ID
     // we will now pull from the getcatalog endpoint
     const next_res = await fetch(
       `http://localhost:3000/api/catalog/read/${userData[0].Sponsor_Org_ID}`
     );
-    let catalogArray = await next_res.json();
+    const catalogArray = await next_res.json();
     if (!catalogArray[0].catalog.includes(id)) {
       catalogArray[0].catalog.push(id); // new ID has been added to the array
     }
@@ -163,11 +181,29 @@ export default function Account() {
   return (
     <>
       <Navbar />
+
       {userType === -1 ? (
-        <Box display="flex" justifyContent="center">
+        // if user information fails to load entirely
+        <Box margin="8px" display="flex" justifyContent="center">
           <Typography>Failed to load user info, please try again</Typography>
         </Box>
       ) : (
+        // ************ Uncomment this for when we have connection between driver and sponsor **********************
+        // ) : userType === UserType.driver && sponsorCatalog.length === 0 ? (
+        //   // if user is a driver and sponsor catalog is empty or fails to load
+        //   <Box
+        //     margin="8px"
+        //     display="flex"
+        //     justifyContent="center"
+        //     alignItems="center"
+        //     flexDirection="column"
+        //   >
+        //     <Typography>Failed to load sponsor catalog!</Typography>
+        //     <Typography>
+        //       This could mean you are not assigned to a sponsor or your sponsor's
+        //       catalog is empty
+        //     </Typography>
+        //   </Box>
         <Box margin="8px">
           <Box
             display="flex"
@@ -179,10 +215,9 @@ export default function Account() {
               <Button endIcon={<FilterList />} onClick={() => filter_prompt()}>
                 Filter
               </Button>
-
-              <IconButton onClick={() => checkout_prompt()}>
-                Cart <ShoppingCart />
-              </IconButton>
+              <Link legacyBehavior href="/cart">
+                <Button endIcon={<ShoppingCart />}>Cart</Button>
+              </Link>
             </div>
           </Box>
 
@@ -200,7 +235,17 @@ export default function Account() {
               value={searchTerm}
               InputProps={{
                 endAdornment: (
-                  <IconButton onClick={() => search(searchTerm)}>
+                  <IconButton
+                    onClick={() => {
+                      // userType === UserType.driver
+                      //   ? {
+                      //       /* implement catalog search for drivers*/
+                      //     }
+                      //   : // only calls this function to search itunes itself
+                      //     // if user is not a driver
+                      searchITunes(searchTerm);
+                    }}
+                  >
                     <Search />
                   </IconButton>
                 ),
@@ -223,11 +268,13 @@ export default function Account() {
               ) : (
                 searchResults.map((v) => (
                   <AlbumTile
+                    key={v.collectionId}
                     album={v}
                     userType={userType}
-                    catalog={[]}
-                    addToCatalog={addToCatalog}
-                    addToCart={addToCart}
+                    catalog={sponsorCatalog}
+                    action={
+                      userType === UserType.driver ? addToCart : addToCatalog
+                    }
                   />
                 ))
               )}
@@ -243,8 +290,7 @@ type AlbumTileProps = {
   album: iTunesAlbum;
   userType: number;
   catalog: number[];
-  addToCatalog: (id: number) => void;
-  addToCart: (id: number) => void;
+  action: (id: number) => void;
 };
 
 const AlbumTile = (props: AlbumTileProps) => {
@@ -281,24 +327,24 @@ const AlbumTile = (props: AlbumTileProps) => {
           {type === UserType.sponsor ? (
             <Button
               variant="outlined"
-              onClick={() => props.addToCatalog(album.collectionId)}
+              onClick={() => props.action(album.collectionId)}
             >
               Add to Catalog
             </Button>
           ) : (
             <Button
               variant="outlined"
-              onClick={() => props.addToCart(album.collectionId)}
+              onClick={() => props.action(album.collectionId)}
             >
               Add to Cart
             </Button>
           )}
-          <Button
+          {/* <Button
             endIcon={<DeleteForeverRounded />}
             onClick={() => {}} //delete_prompt()}
           >
             Filter
-          </Button>
+          </Button> */}
         </div>
       </Box>
     </Paper>

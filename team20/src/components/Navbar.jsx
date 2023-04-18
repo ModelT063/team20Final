@@ -7,6 +7,7 @@ const MENU_LIST = [
   { text: "Register User", href: "/account" },
   { text: "Personal Information", href: "/pii" },
   { text: "Catalog", href: "/catalog" },
+  { text: "Cart", href: "/cart"}
 ];
 const Navbar = () => {
   const [navActive, setNavActive] = useState(null);
