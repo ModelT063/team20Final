@@ -174,6 +174,10 @@ export default function Account() {
     );
   };
 
+  function delete_prompt(): void {
+    throw new Error("Function not implemented.");
+  }
+
   return (
     <>
       <Navbar />
