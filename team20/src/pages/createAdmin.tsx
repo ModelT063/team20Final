@@ -5,7 +5,7 @@ import { UserType } from '@/types/user';
 import NotFoundPage from '@/components/404'
 import { CircularProgress } from '@mui/material';
 
-class Register extends Component {
+class CreateAdmin extends Component {
 
   state = {
     name: "",
@@ -170,4 +170,4 @@ class Register extends Component {
   }
 }
 
-export default Register;
+export default CreateAdmin;
