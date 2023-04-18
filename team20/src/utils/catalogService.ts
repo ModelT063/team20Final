@@ -25,9 +25,9 @@ export const getAlbumsFromiTunes = async (
 export const getCatalogAlbums = async (
   catalog: number[]
 ): Promise<iTunesResult> => {
-
-  const idString = "";
-  catalog.forEach((v) => idString.concat(`${v},`))
+  if(catalog.length === 0) return {resultCount: 0, results: []} as iTunesResult;
+  let idString = "";
+  catalog.forEach((v) => {idString += `${v},`})
 
   return fetch(
     "https://itunes.apple.com/lookup?" +

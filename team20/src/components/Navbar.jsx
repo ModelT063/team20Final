@@ -14,6 +14,7 @@ const MENU_LIST = [
   { text: "Audits", href: "/audit"},
   { text: "Catalog", href: "/catalog" },
   { text: "Register", href: "/account" },
+  { text: "Cart", href: "/cart"}
 ];
 
 const Navbar = () => {
