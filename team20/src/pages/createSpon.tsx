@@ -21,6 +21,10 @@ class CreateSpon extends Component {
     }
   }
 
+  getRndInteger(min: any, max: any) {
+    return Math.floor(Math.random() * (max - min + 1) ) + min;
+  }
+
   handleSubmit = async event => {
     event.preventDefault();
 
@@ -42,7 +46,7 @@ class CreateSpon extends Component {
         const newname = this.state.name.split(" ");
         const data = {
         // NEED TO FIGURE OUT HOW TO GET USER ID FROM USER POOL
-            User_ID: 2, Email: this.state.username,
+            User_ID: this.getRndInteger(0, 1000), Email: this.state.username,
             F_Name: newname[0], L_Name: newname[1]
         };
 
@@ -87,7 +91,8 @@ class CreateSpon extends Component {
   }
 
   render() {
-    return ( this.state.userType === "" ? <><Navbar/><CircularProgress/></>: parseInt(this.state.userType) != UserType.admin ? <NotFoundPage/> :
+    return ( this.state.userType === "" ? <><Navbar/><CircularProgress/></>: parseInt(this.state.userType) != UserType.sponsor ? <NotFoundPage/> :
+
       <>
       <Navbar />
       <section className="section auth">

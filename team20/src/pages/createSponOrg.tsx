@@ -8,40 +8,30 @@ import { Auth } from "aws-amplify";
 class CreateSponOrg extends Component {
 
     state = {
-        spon_org_id: 0,
+        //spon_org_id: 0,
         org_name: "",
         points_ratio: 0.0,
         address: "",
         org_status: 0,
         cat_id: 0,
-    }
-
-    data_state = {
         userID: "",
         userType: ""
     }
 
-    getRndInteger(min, max) {
+    getRndInteger(min: any, max: any) {
         return Math.floor(Math.random() * (max - min + 1) ) + min;
     }
 
-    componentDidMount() {
-        Auth.currentAuthenticatedUser().then( async (data) => {
-          this.data_state.userID = await data.username;
-          const res = await fetch(`http://localhost:3000/api/users/read/${this.data_state.userID}`)
-          const info = await res.json();
-          this.setState({userType: info[0].User_Type})
-        });
-    }
-
     handleSubmit = async event => {
+        event.preventDefault();
+
         const data = {
-            Sponsor_Org_ID: this.getRndInteger(0, 9999), 
+            //Sponsor_Org_ID: this.getRndInteger(0, 9999), 
             Organization_Name: this.state.org_name,
             Points_Ratio: this.state.points_ratio,
             Address: this.state.address,
             Organization_Status: this.state.org_status,
-            Catalog_ID: this.getRndInteger(0, 9999)
+            Catalog_ID: 10
         };
 
         console.log('sending to database..');
@@ -68,12 +58,21 @@ class CreateSponOrg extends Component {
         });
     }
 
+    componentDidMount() {
+        Auth.currentAuthenticatedUser().then( async (data) => {
+          this.state.userID = await data.username;
+          const res = await fetch(`http://localhost:3000/api/users/read/${this.state.userID}`)
+          const info = await res.json();
+          this.setState({userType: info[0].User_Type})
+        });
+    }
 
-    render() {
-        return ( this.data_state.userType === "" ? <><Navbar/><CircularProgress/></>: parseInt(this.data_state.userType) != UserType.admin ? <NotFoundPage/> :
+    render() { 
+        return ( this.state.userType === "" ? <><Navbar/><CircularProgress/></>: parseInt(this.state.userType) != UserType.sponsor ? <NotFoundPage/> :
+
           <>
-          <Navbar />
-   
+          <Navbar/>
+
           <section className="section auth">
             <div className="container">
               <h1>Register</h1>
@@ -83,8 +82,8 @@ class CreateSponOrg extends Component {
                     <input 
                       className="input" 
                       type="text"
-                      id="username"
-                      aria-describedby="userNameHelp"
+                      id="org_name"
+                      //aria-describedby="userNameHelp"
                       placeholder="Enter organization name"
                       value={this.state.org_name}
                       onChange={this.onInputChange}
@@ -96,8 +95,8 @@ class CreateSponOrg extends Component {
                     <input 
                       className="input" 
                       type="number"
-                      id="name"
-                      aria-describedby="userNameHelp"
+                      id="points_ratio"
+                      //aria-describedby="userNameHelp"
                       placeholder="Enter points ratio"
                       value={this.state.points_ratio}
                       onChange={this.onInputChange}
@@ -109,7 +108,7 @@ class CreateSponOrg extends Component {
                     <input 
                       className="input" 
                       type="text"
-                      id="password"
+                      id="address"
                       placeholder="Enter address"
                       value={this.state.address}
                       onChange={this.onInputChange}
@@ -129,6 +128,9 @@ class CreateSponOrg extends Component {
               </form>
             </div>
           </section>
+
+    
+
           </>
 
         );

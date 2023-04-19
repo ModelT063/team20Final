@@ -13,9 +13,9 @@ const MENU_LIST = [
   { text: "Account", href: "/pii" },  
   { text: "Audits", href: "/audit"},
   { text: "Catalog", href: "/catalog" },
-  { text: "Register", href: "/account" },
+  { text: "Register", href: "/createSpon" },
   { text: "Cart", href: "/cart"},
-  { text: "Driver Application", href: "/driverApplicationUpload"},
+  { text: "Driver Application", href: "/driverAppUpload"},
   { text: "Create Organization", href: "/createSponOrg"}
 ];
 
