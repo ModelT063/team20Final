@@ -12,7 +12,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         const newOrganization: SponsorOrganization = req.body;
         db.connect( (err) => {
             if (err) throw err;
-            db.query("INSERT INTO SponsorOrganizations VALUES (?, ?, ?, ?, ?, ?)", 
+            db.query("INSERT INTO SponsorOrganizations VALUES (?, ?, ?, ?, ?)", 
             [
                 0,
                 newOrganization.Organization_Name,
