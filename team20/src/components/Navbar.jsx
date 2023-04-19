@@ -15,7 +15,8 @@ const MENU_LIST = [
   { text: "Catalog", href: "/catalog" },
   { text: "Register", href: "/account" },
   { text: "Cart", href: "/cart"},
-  { text: "Driver Application", href: "/driverApplication"}
+  { text: "Driver Application", href: "/driverApplicationUpload"},
+  { text: "Create Organization", href: "/createSponOrg"}
 ];
 
 const Navbar = () => {

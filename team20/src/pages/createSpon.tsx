@@ -68,7 +68,7 @@ class CreateSpon extends Component {
         console.log('error resending code: ', err);
     }
 
-}
+  }
 
   onInputChange = event => {
     this.setState({
