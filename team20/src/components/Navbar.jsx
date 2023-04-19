@@ -54,8 +54,8 @@ const Navbar = () => {
             </div>
           ))}
         </div>
-        {/* <UIMode></UIMode> */}
-        <Button endIcon={<UIMode/>}></Button>
+        {/* <UIMode></UIMode> 
+        <Button endIcon={<UIMode/>}></Button>*/}
       </nav>
     </header>
   );
