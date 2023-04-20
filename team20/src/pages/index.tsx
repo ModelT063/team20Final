@@ -10,8 +10,8 @@ import { useRecoilState } from "recoil";
 import { userInfoState, userID, userOrganizations } from "@/lib/userData";
 import { useEffect } from "react";
 import { getID, getInfo, getOrgs } from "@/utils/userService";
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import Box from '@mui/material/Box';
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import Box from "@mui/material/Box";
 Amplify.configure(awsExports);
 
 function App({ signOut, user }: { signOut: any; user: any }) {
@@ -22,7 +22,7 @@ function App({ signOut, user }: { signOut: any; user: any }) {
     getID().then((data) => setID(data));
     getInfo().then((data) => setInfo(data));
     getOrgs().then((data) => setOrgs(data));
-  }, []);
+  }, [data]);
   const name = user.attributes.name.split(" ");
   const data = {
     User_ID: user.attributes.sub,
@@ -48,29 +48,50 @@ function App({ signOut, user }: { signOut: any; user: any }) {
 
   return (
     <>
-      <div><Navbar /></div>
-      
-      <h1><center>Welcome to Good Drivers, {data.F_Name} {data.L_Name}</center> </h1>
-      <br></br><br></br>
+      <div>
+        <Navbar />
+      </div>
+
+      <h1>
+        <center>
+          Welcome to Good Drivers, {data.F_Name} {data.L_Name}
+        </center>{" "}
+      </h1>
+      <br></br>
+      <br></br>
 
       <div>
-      <center><LocalShippingIcon fontSize="large"></LocalShippingIcon></center>
-      <br></br><center>-- About Us --</center><br></br>
-      <center><Box height={5} width={500}>
-        Good Drivers was established in February 2023 in Clemson, South Carolina.
-        Our mission is to provide our drivers with up-to-date technology
-        to track their driving performance, purchase products, and to 
-        establish connections with their sponsors. This platform also 
-        provides opportuntiy for sponsoring companies to 
-        develop clientele with our drivers. Currenlty we are number
-        one in the Southeastern United States region for truck 
-        driver assistance and performance. 
-        </Box></center>
-        </div>
+        <center>
+          <LocalShippingIcon fontSize="large"></LocalShippingIcon>
+        </center>
+        <br></br>
+        <center>-- About Us --</center>
+        <br></br>
+        <center>
+          <Box height={5} width={500}>
+            Good Drivers was established in February 2023 in Clemson, South
+            Carolina. Our mission is to provide our drivers with up-to-date
+            technology to track their driving performance, purchase products,
+            and to establish connections with their sponsors. This platform also
+            provides opportuntiy for sponsoring companies to develop clientele
+            with our drivers. Currenlty we are number one in the Southeastern
+            United States region for truck driver assistance and performance.
+          </Box>
+        </center>
+      </div>
 
-      <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
       <div>
-        <center><button onClick={signOut}>Sign out</button></center>
+        <center>
+          <button onClick={signOut}>Sign out</button>
+        </center>
       </div>
     </>
   );
