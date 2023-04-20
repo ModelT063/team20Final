@@ -12,42 +12,56 @@ import { useRecoilValue, useRecoilState } from "recoil";
     userID: "",
   }
 */
-function Upload() {
+export default function Upload() {
   const [selectedFile, setSelectedFile] = useState(null)
 
   const handleFileChange = (event:any) => {
+    //const [selectedFile, setSelectedFile] = useState(null);
     setSelectedFile(event.target.files[0]);
   }
 
   const handleUpload = async (event:any) => {
-    const userInfo = useRecoilValue(userInfoState);
-    const [selectedFile, setSelectedFile] = useState(null)
+    //const userInfo = useRecoilValue(userInfoState);
+    //const [selectedFile, setSelectedFile] = useState(null)
     event.preventDefault();
     if (!selectedFile) return;
 
     const formData = new FormData();
     formData.append('pdf', selectedFile);
+    
+    console.log(selectedFile);
 
-    const data = {
-      User_ID: userInfo[0]['User_ID'],
-      Sponsor_Org_ID: 11,
-      Application_Document: formData
-    }
+    try {
+      const data = {
+        //User_ID: userInfo[0]['User_ID'],
+        User_ID: 11,
+        Sponsor_Org_ID: 11,
+        Application_Document: selectedFile
+      }
+      console.log(data)
 
-    const response = await fetch('/api/sponsor_driver_relationship/create/addrelationship', {
-      method: 'POST',
-      body: JSON.stringify(data)
-    });
-
-    if (response.ok) {
-      console.log('PDF uploaded successfully');
-    } else {
-      console.error('Failed to upload PDF');
+      fetch('/api/sponsor_driver_relationship/create/addrelationship', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success: ", data);
+      })
+      .catch((error) => {
+        console.log("Error: ", error);
+      });
+    } catch (err) {
+      console.log('error resending code: ', err);
     }
   }
 
-  return (
+  return ( 
     <>
+    <h1>driver application upload</h1>
     <form onSubmit={handleUpload}>
       <div>
         <label htmlFor="pdf">Select a PDF to upload:</label>
@@ -64,4 +78,4 @@ function Upload() {
   );
 }
 
-export default Upload;
+//export default Upload;

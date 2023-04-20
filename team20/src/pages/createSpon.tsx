@@ -52,18 +52,18 @@ class CreateSpon extends Component {
 
         console.log('sending to database..');
         fetch("http://localhost:3000/api/users/create/sponsor/adduser", {
-        method: "POST",
-        headers: {
-        "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data)
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data)
         })
         .then((response) => response.json())
         .then((data) => {
-        console.log("Success: ", data);
+          console.log("Success: ", data);
         })
         .catch((error) => {
-        console.log("Error: ", error);
+          console.log("Error: ", error);
         });
         console.log('sending to database...');
 
