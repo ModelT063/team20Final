@@ -18,11 +18,6 @@ function App({ signOut, user }: { signOut: any; user: any }) {
   const [info, setInfo] = useRecoilState(userInfoState);
   const [id, setID] = useRecoilState(userID);
   const [orgs, setOrgs] = useRecoilState(userOrganizations);
-  useEffect(() => {
-    getID().then((data) => setID(data));
-    getInfo().then((data) => setInfo(data));
-    getOrgs().then((data) => setOrgs(data));
-  }, [data]);
   const name = user.attributes.name.split(" ");
   const data = {
     User_ID: user.attributes.sub,
@@ -30,21 +25,28 @@ function App({ signOut, user }: { signOut: any; user: any }) {
     F_Name: name[0],
     L_Name: name[1],
   };
+  useEffect(() => {
+    getID().then((data) => setID(data));
+    getInfo().then((data) => setInfo(data));
+    getOrgs().then((data) => setOrgs(data));
+  }, []);
 
-  fetch("http://localhost:3000/api/users/create/adduser", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("Success: ", data);
+  useEffect(() => {
+    fetch("http://localhost:3000/api/users/create/adduser", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
     })
-    .catch((error) => {
-      console.error("Error: ", error);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success: ", data);
+      })
+      .catch((error) => {
+        console.error("Error: ", error);
+      });
+  }, []);
 
   return (
     <>
