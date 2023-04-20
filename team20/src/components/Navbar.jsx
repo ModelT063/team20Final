@@ -7,15 +7,13 @@ import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
 import {Avatar, Box, Paper, Typography, Button, Menu} from "@mui/material";
 import { prototype } from "events";
 
-
 const MENU_LIST = [
-  // { text: "Home", href: "/" },
   { text: "Account", href: "/pii" },  
   { text: "Audits", href: "/audit"},
-  { text: "Catalog", href: "/catalog" },
-  { text: "Register", href: "/account" },
   { text: "Cart", href: "/cart"},
-  { text: "Driver Application", href: "/driverApplication"}
+  { text: "Catalog", href: "/catalog" },
+  { text: "Driver Application", href: "/driverApplication"},
+  { text: "Register", href: "/account" }
 ];
 
 const Navbar = () => {
@@ -54,7 +52,6 @@ const Navbar = () => {
             </div>
           ))}
         </div>
-        {/* <UIMode></UIMode> */}
         <Button endIcon={<UIMode/>}></Button>
       </nav>
     </header>
