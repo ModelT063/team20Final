@@ -29,14 +29,14 @@ export default function Upload() {
     const formData = new FormData();
     formData.append('pdf', selectedFile);
     
-    console.log(selectedFile);
+    console.log(formData);
 
     try {
       const data = {
         //User_ID: userInfo[0]['User_ID'],
         User_ID: 11,
         Sponsor_Org_ID: 11,
-        Application_Document: selectedFile
+        Application_Document: formData
       }
       console.log(data)
 
