@@ -29,7 +29,7 @@ import { useRecoilValue } from "recoil";
 import { userInfoState, userID } from "@/lib/userData";
 import Link from "next/link";
 
-export default function Account() {
+export default function Catalog() {
   // make sure proper things show up depending on the user that's logged in
   const [searchResults, setsearchResults] = useState<iTunesAlbum[]>([]);
   const [sponsorCatalog, setSponsorCatalog] = useState<number[]>([]);
@@ -43,15 +43,10 @@ export default function Account() {
     prompt("Enter your user ID to filter your results to your albums\n");
   }
 
-  function checkout_prompt(): void {
-    prompt("You have 0 items in your cart.\n Click 'OK' to checkout\n");
-  }
-
   // get current user info from recoil and grab the user type for props
+  const recoilType = useRecoilValue(userInfoState);
   const userType =
-    useRecoilValue(userInfoState).length === 0
-      ? -1
-      : parseInt(useRecoilValue(userInfoState)[0]["User_Type"]);
+    recoilType.length === 0 ? -1 : parseInt(recoilType[0]["User_Type"]);
   const loggedInUserID = useRecoilValue(userID);
 
   // use this to set searchResults to be the albums found in sponsorCatalog

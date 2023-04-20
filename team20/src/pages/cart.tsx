@@ -13,10 +13,9 @@ export default function Cart() {
   const [totalPrice, setTotalPrice] = useState<number>(0);
 
   const loggedInUserID = useRecoilValue(userID);
+  const recoilType = useRecoilValue(userInfoState);
   const userType =
-    useRecoilValue(userInfoState).length === 0
-      ? -1
-      : parseInt(useRecoilValue(userInfoState)[0]["User_Type"]);
+    recoilType.length === 0 ? -1 : parseInt(recoilType[0]["User_Type"]);
 
   const clearCart = async () => {
     // let cognitoUser = JSON.parse(localStorage.getItem("CognitoUser") || "{}");
