@@ -88,7 +88,7 @@ export default function Pii() {
         <Navbar />
       </div>
       <h1>
-        <center>User Information</center>
+        <center>Account Information</center>
       </h1>
       <center>
         {userInfo[0] && (
@@ -100,40 +100,29 @@ export default function Pii() {
       <center>
         <table style={tableStyles}>
           <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>User Type</th>
-            <th>Points</th>
-            <th>Organization(s):</th>
-          </tr>
-
-          <tr>
-            <td>
-              {userInfo[0] != undefined
+            <th>Name</th> <td>{userInfo[0] != undefined
                 ? userInfo[0]["F_Name"] + " " + userInfo[0]["L_Name"]
-                : "Unknown User"}
-            </td>
-            <td>{userInfo[0] != undefined ? userInfo[0]["Email"] : "N/A"}</td>
-            <td>
-              {userInfo[0] != undefined
+                : "Unknown User"}</td></tr>
+          <tr>
+            <th>Email</th> <td>{userInfo[0] != undefined ? userInfo[0]["Email"] : "N/A"}</td></tr>
+          <tr>
+            <th>User Type</th> <td> {userInfo[0] != undefined
                 ? userInfo[0]["User_Type"] == 0
                   ? "Driver"
                   : userInfo[0]["User_Type"] == 1
                   ? "Sponsor"
                   : "Admin"
-                : "N/A"}
-            </td>
-            <td>{userInfo[0] != undefined ? userInfo[0]["Points"] : "N/A"}</td>
-            <td>
-              {orgs.length > 0
+                : "N/A"}</td></tr>
+          <tr>
+            <th>Points</th> <td>{userInfo[0] != undefined ? userInfo[0]["Points"] : "N/A"}</td></tr>
+          <tr>
+            <th>Organization(s)</th> <td>{orgs.length > 0
                 ? orgs.map((org) => (
                     <div key={org["Organization_Name"]}>
                       <li>{org["Organization_Name"]}</li>
                     </div>
                   ))
-                : "You don't belong to any organizations"}
-            </td>
-          </tr>
+                : "You don't belong to any organizations"}</td></tr>
         </table>
       </center>
       <Dialog open={isOpen}>
