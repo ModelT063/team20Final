@@ -9,8 +9,6 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import FileOpenIcon from '@mui/icons-material/FileOpen';
 import {Avatar, Box, Typography, Button, Menu} from "@mui/material";
-import { open } from 'fs';
-import { fileURLToPath } from 'url';
 // import auditPDF from "src\\CPSC 4910 Internal Audit Report.pdf";
 
 function createData(reportNumber: number, user: string, reportType: string, reason:string, document:string) {
