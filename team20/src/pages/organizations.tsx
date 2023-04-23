@@ -93,6 +93,7 @@ const OrgTile = (props: OrgTileProps) => {
           {type == UserType.driver && <Link component="button">Apply</Link>}
         </div>
       </Box>
+      <a href='downloadS3'>GO TO APPLICATION</a>
     </Paper>
   );
 };
