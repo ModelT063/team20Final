@@ -21,7 +21,7 @@ class CreateSponOrg extends Component {
         userType: ""
     }
 
-    getRndInteger(min, max) {
+    getRndInteger(min:any, max:any) {
         return Math.floor(Math.random() * (max - min + 1) ) + min;
     }
 

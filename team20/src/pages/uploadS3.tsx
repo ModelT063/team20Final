@@ -1,5 +1,11 @@
 import React ,{useState} from 'react';
 import AWS from 'aws-sdk'
+import Navbar from "../components/Navbar";
+import { UserType } from '@/types/user';
+import NotFoundPage from '@/components/404'
+import { CircularProgress } from '@mui/material';
+import { Auth } from "aws-amplify";
+
 
 const S3_BUCKET ='team20-driverapps';
 const REGION ='us-east-1';
@@ -42,12 +48,12 @@ const UploadToS3WithNativeSdk = () => {
             })
     }
 
-
-    return <div>
-        <div>Application File Upload Progress is {progress}%</div>
-        <input type="file" onChange={handleFileInput}/>
-        <button onClick={() => uploadFile(selectedFile)}> Upload to S3</button>
-    </div>
+    return <div> 
+            <h2>PLEASE NAME THE APPLICATION: 'name of your organization'.pdf</h2>
+            <div>Application File Upload Progress is {progress}%</div>
+            <input type="file" onChange={handleFileInput}/>
+            <button onClick={() => uploadFile(selectedFile)}> Upload to S3</button>
+        </div>
 }
 
 export default UploadToS3WithNativeSdk;

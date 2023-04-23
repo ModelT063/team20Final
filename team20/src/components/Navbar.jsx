@@ -13,7 +13,7 @@ const MENU_LIST = [
   { text: "Cart", href: "/cart"},
   { text: "Catalog", href: "/catalog" },
   { text: "Create Organization", href: "/createSponOrg"},
-  { text: "Driver Application Upload", href: "/driverApplicationUpload"},
+  { text: "Driver Management", href: "/sponsorDriverMgmt"},
   { text: "Organizations", href: "/organizations"}
 ];
 
