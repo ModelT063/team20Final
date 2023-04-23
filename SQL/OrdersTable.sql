@@ -1,14 +1,13 @@
-CREATE TABLE `Team20Schema`.`Orders` (
-  `Order_ID` INT NOT NULL AUTO_INCREMENT,
-  `User_ID` INT NULL,
-  `Points_ID` INT NULL,
-  `Order_Status` INT NULL,
-  `Product` VARCHAR(45) NULL,
-  `Order_Time` DATETIME NULL,
+CREATE TABLE `Orders` (
+  `Order_ID` int NOT NULL AUTO_INCREMENT,
+  `User_ID` varchar(45) NOT NULL,
+  `Point_Change_ID` int DEFAULT NULL,
+  `Order_Status` int DEFAULT NULL,
+  `Product` varchar(45) DEFAULT NULL,
+  `Order_Time` datetime DEFAULT NULL,
   PRIMARY KEY (`Order_ID`),
-  INDEX `fk_order_user_id_idx` (`User_ID` ASC) VISIBLE,
-  CONSTRAINT `fk_order_user_id`
-    FOREIGN KEY (`User_ID`)
-    REFERENCES `Team20Schema`.`Users` (`User_ID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+  KEY `fk_order_user_id_idx` (`User_ID`),
+  KEY `fk_orders_points_id_idx` (`Point_Change_ID`),
+  CONSTRAINT `fk_order_user_id` FOREIGN KEY (`User_ID`) REFERENCES `Users` (`User_ID`),
+  CONSTRAINT `fk_orders_points_id` FOREIGN KEY (`Point_Change_ID`) REFERENCES `PointChanges` (`Point_Change_ID`)
+)
