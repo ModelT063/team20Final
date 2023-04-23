@@ -1,4 +1,4 @@
-import { Grid, Typography, Box, Paper } from "@mui/material";
+import { Grid, Typography, Box, Paper, Link} from "@mui/material";
 import Navbar from "../components/Navbar";
 import { UserInfo, UserType } from "@/types/user";
 import { useRecoilValue } from "recoil";
@@ -19,7 +19,7 @@ export default function Organizations() {
       <Navbar />
       <Box margin="8px">
         <Box display="flex" flexDirection="row" justifyContent="center">
-          <Typography variant="h5">Sponsor Organizations</Typography>
+          <Typography margin="20px" variant="h5">Sponsor Organizations</Typography>
         </Box>
         <Box
           width="100%"
@@ -72,7 +72,6 @@ const OrgTile = (props: OrgTileProps) => {
         overflow: "hidden",
       }}
     >
-      <h1>{name}</h1>
       <Box
         display="flex"
         flexDirection="column"
@@ -81,9 +80,10 @@ const OrgTile = (props: OrgTileProps) => {
         textAlign="center"
       >
         <div>
-          <Typography variant="h5">{name}</Typography>
-          <Typography>{address}</Typography>
-          <Typography>Ratio: {ratio}</Typography>
+          <Typography marginBottom="10px"variant="h5">{name}</Typography>
+          <Typography marginBottom="10px">{address}</Typography>
+          <Typography marginBottom="10px">Points Ratio: {ratio}</Typography>
+          <Link component="button">Apply</Link>
         </div>
       </Box>
     </Paper>
