@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
+import { CssBaseline } from '@mui/material';
 ///import { global } from 'styled-jsx/css';
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
@@ -25,7 +26,7 @@ function MyApp() {
       }}
     >
       {theme.palette.mode}
-      <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
+      <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} scolor="inherit">
         {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
       </IconButton>
     </Box>
@@ -56,6 +57,7 @@ export default function ToggleColorMode() {
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
+        <CssBaseline />
         <MyApp />
       </ThemeProvider>
     </ColorModeContext.Provider>
