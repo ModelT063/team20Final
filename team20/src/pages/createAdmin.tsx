@@ -3,8 +3,7 @@ import { Auth } from "aws-amplify";
 import React, { Component, useState, useEffect } from "react";
 import { UserType } from "@/types/user";
 import NotFoundPage from "@/components/404";
-import { CircularProgress } from "@mui/material";
-require("dotenv").config();
+import CircularProgress from "@mui/material/CircularProgress";
 
 class CreateAdmin extends Component {
   state = {
@@ -48,7 +47,7 @@ class CreateAdmin extends Component {
       };
 
       console.log("sending to database..");
-      fetch("process.env.APP_URL/api/users/create/admin/adduser", {
+      fetch(`${process.env.APP_URL}/api/users/create/admin/adduser`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -79,7 +78,7 @@ class CreateAdmin extends Component {
     Auth.currentAuthenticatedUser().then(async (data) => {
       this.setState({ userID: await data.username });
       const res = await fetch(
-        `process.env.APP_URL/api/users/read/${this.state.userID}`
+        `${process.env.APP_URL}/api/users/read/${this.state.userID}`
       );
       const info = await res.json();
       this.setState({ userType: info[0].User_Type });

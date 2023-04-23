@@ -1,21 +1,19 @@
 import Navbar from "../components/Navbar";
-import {
-  Alert,
-  Button,
-  CircularProgress,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-  TextField,
-} from "@mui/material";
+import Alert from "@mui/material/Alert";
+import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import IconButton from "@mui/material/IconButton";
+import TextField from "@mui/material/TextField";
 import { userID, userInfoState, userOrganizations } from "@/lib/userData";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { useEffect, useState } from "react";
 import { getOrgs } from "@/utils/userService";
-import { Close, Edit } from "@mui/icons-material";
-require("dotenv").config();
+import Close from "@mui/icons-material/Close";
+import Edit from "@mui/icons-material/Edit";
 
 export default function Pii() {
   const [isOpen, setIsOpen] = useState(false);
@@ -72,7 +70,7 @@ export default function Pii() {
       },
     };
     setInfo([updatedUser] as any);
-    fetch(`process.env.APP_URL/api/users/update/${id}`, {
+    fetch(`${process.env.APP_URL}/api/users/update/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

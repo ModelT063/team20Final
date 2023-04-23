@@ -3,10 +3,12 @@ import { userID, userInfoState } from "@/lib/userData";
 import { iTunesAlbum } from "@/types/catalogTypes";
 import { UserType } from "@/types/user";
 import { getAlbumsFromiTunes, getCatalogAlbums } from "@/utils/catalogService";
-import { Box, Button, Divider, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Divider from "@mui/material/Divider";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
-require("dotenv").config();
 
 export default function Cart() {
   const [userCart, setUserCart] = useState<number[]>([]);
@@ -22,7 +24,7 @@ export default function Cart() {
     // let cognitoUser = JSON.parse(localStorage.getItem("CognitoUser") || "{}");
     // let userID = cognitoUser.username;
     const res = await fetch(
-      `process.env.APP_URL/api/users/read/${loggedInUserID}`
+      `${process.env.APP_URL}/api/users/read/${loggedInUserID}`
     );
     let userData = await res.json();
     userData[0].Cart = [];
@@ -37,7 +39,7 @@ export default function Cart() {
         ids: userData[0].Cart,
       },
     };
-    fetch(`process.env.APP_URL/api/users/update/${loggedInUserID}`, {
+    fetch(`${process.env.APP_URL}/api/users/update/${loggedInUserID}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -61,7 +63,7 @@ export default function Cart() {
       return;
     }
 
-    fetch(`process.env.APP_URL/api/users/read/${loggedInUserID}`)
+    fetch(`${process.env.APP_URL}/api/users/read/${loggedInUserID}`)
       .then((res) =>
         res
           .json()

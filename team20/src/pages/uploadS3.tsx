@@ -3,7 +3,6 @@ import AWS from "aws-sdk";
 import Navbar from "../components/Navbar";
 import { UserType } from "@/types/user";
 import NotFoundPage from "@/components/404";
-import { CircularProgress } from "@mui/material";
 import { Auth } from "aws-amplify";
 
 const S3_BUCKET = "team20-driverapps";

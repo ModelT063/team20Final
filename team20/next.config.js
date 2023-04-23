@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const { PHASE_DEVELOPMENT_SERVER } = require("next/constants");
+require("dotenv").config();
 
 module.exports = (phase) => {
   switch (phase) {
@@ -25,6 +26,12 @@ module.exports = (phase) => {
           REDIRECT_SIGN_IN: " ",
           REDIRECT_SIGN_OUT: " ",
           AUTH_COOKIE_DOMAIN: " ",
+          DATABASE_URL: process.env.DATABASE_URL,
+          DATABASE_USER: process.env.DATABASE_USER,
+          DATABASE_PASSWORD: process.env.DATABASE_PASSWORD,
+          DATABASE_PORT: process.env.DATABASE_PORT,
+          DATABASE_NAME: process.env.DATABASE_NAME,
+          APP_URL: process.env.APP_URL,
         },
       };
   }

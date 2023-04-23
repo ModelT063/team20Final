@@ -1,10 +1,9 @@
 import React, { Component, useState, useEffect } from "react";
 import { UserType } from "@/types/user";
 import NotFoundPage from "@/components/404";
-import { CircularProgress } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 import Navbar from "../components/Navbar";
 import { Auth } from "aws-amplify";
-require("dotenv").config();
 
 class CreateSponOrg extends Component {
   state = {
@@ -29,7 +28,7 @@ class CreateSponOrg extends Component {
     Auth.currentAuthenticatedUser().then(async (data) => {
       this.data_state.userID = await data.username;
       const res = await fetch(
-        `process.env.APP_URL/api/users/read/${this.data_state.userID}`
+        `${process.env.APP_URL}/api/users/read/${this.data_state.userID}`
       );
       const info = await res.json();
       this.setState({ userType: info[0].User_Type });
@@ -48,7 +47,7 @@ class CreateSponOrg extends Component {
 
     console.log("sending to database..");
     fetch(
-      "process.env.APP_URL/api/sponsororganization/create/addorganization",
+      `${process.env.APP_URL}/api/sponsororganization/create/addorganization`,
       {
         method: "POST",
         headers: {

@@ -1,7 +1,7 @@
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import React, { useState } from "react";
 // import AWS from 'aws-sdk'
-import { TextField } from "@mui/material";
+import TextField from "@mui/material/TextField";
 
 const S3_BUCKET = "team20-driverapps";
 const REGION = "us-east-1";

@@ -1,4 +1,8 @@
-import { Grid, Typography, Box, Paper, Link} from "@mui/material";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
+import Link from "@mui/material/Link";
 import Navbar from "../components/Navbar";
 import { UserInfo, UserType } from "@/types/user";
 import { useRecoilValue } from "recoil";
@@ -23,7 +27,9 @@ export default function Organizations() {
       <Navbar />
       <Box margin="8px">
         <Box display="flex" flexDirection="row" justifyContent="center">
-          <Typography margin="20px" variant="h5">Sponsor Organizations</Typography>
+          <Typography margin="20px" variant="h5">
+            Sponsor Organizations
+          </Typography>
         </Box>
         <Box
           width="100%"
@@ -87,13 +93,15 @@ const OrgTile = (props: OrgTileProps) => {
         textAlign="center"
       >
         <div>
-          <Typography marginBottom="10px"variant="h5">{name}</Typography>
+          <Typography marginBottom="10px" variant="h5">
+            {name}
+          </Typography>
           <Typography marginBottom="10px">{address}</Typography>
           <Typography marginBottom="10px">Points Ratio: {ratio}</Typography>
           {type == UserType.driver && <Link component="button">Apply</Link>}
         </div>
       </Box>
-      <a href='downloadS3'>GO TO APPLICATION</a>
+      <a href="downloadS3">GO TO APPLICATION</a>
     </Paper>
   );
 };
