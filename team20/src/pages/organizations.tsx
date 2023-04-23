@@ -10,6 +10,10 @@ import { useEffect, useState } from "react";
 export default function Organizations() {
   const [data, setData] = useState<any>([]);
 
+  const recoilType = useRecoilValue(userInfoState);
+  const userType =
+    recoilType.length === 0 ? -1 : parseInt(recoilType[0]["User_Type"]);
+
   useEffect(() => {
     loadOrganizations().then((result) => setData(result));
   }, []);
@@ -43,6 +47,7 @@ export default function Organizations() {
                 name={org.Organization_Name}
                 address={org.Address}
                 ratio={org.Points_Ratio}
+                type={userType}
               />
             ))}
           </Grid>
@@ -56,12 +61,14 @@ type OrgTileProps = {
   name: string;
   address: string;
   ratio: number;
+  type: number;
 };
 
 const OrgTile = (props: OrgTileProps) => {
   const name = props.name;
   const address = props.address;
   const ratio = props.ratio;
+  const type = props.type;
 
   return (
     <Paper
@@ -83,7 +90,7 @@ const OrgTile = (props: OrgTileProps) => {
           <Typography marginBottom="10px"variant="h5">{name}</Typography>
           <Typography marginBottom="10px">{address}</Typography>
           <Typography marginBottom="10px">Points Ratio: {ratio}</Typography>
-          <Link component="button">Apply</Link>
+          {type == UserType.driver && <Link component="button">Apply</Link>}
         </div>
       </Box>
     </Paper>
