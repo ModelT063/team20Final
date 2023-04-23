@@ -1,4 +1,5 @@
 import { Auth } from "aws-amplify";
+require("dotenv").config();
 
 export async function getID() {
     const res = await Auth.currentAuthenticatedUser();
@@ -10,7 +11,7 @@ export async function getInfo() {
     let userID;
     await getID().then((data) => userID = data);
     if (userID != "") {
-      const res = await fetch(`http://localhost:3000/api/users/read/${userID}`)
+      const res = await fetch(`process.env.APP_URL/api/users/read/${userID}`)
       const info = await res.json();
       return info;
     }
@@ -21,7 +22,7 @@ export async function getOrgs() {
   let userID;
   await getID().then((data) => userID = data);
   if (userID != "") {
-    const res = await fetch(`http://localhost:3000/api/sponsor_driver_relationship/read/${userID}`);
+    const res = await fetch(`process.env.APP_URL/api/sponsor_driver_relationship/read/${userID}`);
     const orgs = await res.json();
     return orgs;
   }

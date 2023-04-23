@@ -28,6 +28,7 @@ import { UserInfo, UserType } from "@/types/user";
 import { useRecoilValue } from "recoil";
 import { userInfoState, userID } from "@/lib/userData";
 import Link from "next/link";
+require("dotenv").config();
 
 export default function Catalog() {
   // make sure proper things show up depending on the user that's logged in
@@ -64,14 +65,14 @@ export default function Catalog() {
     }
 
     fetch(
-      `http://localhost:3000/api/sponsor_driver_relationship/read/${loggedInUserID}`
+      `process.env.APP_URL/api/sponsor_driver_relationship/read/${loggedInUserID}`
     )
       .then((res) =>
         res
           .json()
           .then((userData) => {
             fetch(
-              `http://localhost:3000/api/catalog/read/${userData[0].Sponsor_Org_ID}`
+              `process.env.APP_URL/api/catalog/read/${userData[0].Sponsor_Org_ID}`
             )
               .then((res) => res.json().then((res) => setSponsorCatalog(res)))
               .catch((e) => console.log(e));
@@ -87,7 +88,7 @@ export default function Catalog() {
     // let cognitoUser = JSON.parse(localStorage.getItem("CognitoUser") || "{}");
     // let userID = cognitoUser.username;
     const res = await fetch(
-      `http://localhost:3000/api/users/read/${loggedInUserID}`
+      `process.env.APP_URL/api/users/read/${loggedInUserID}`
     );
     let userData = await res.json();
     userData[0].Cart.push(id);
@@ -102,7 +103,7 @@ export default function Catalog() {
         ids: userData[0].Cart,
       },
     };
-    fetch(`http://localhost:3000/api/users/update/${loggedInUserID}`, {
+    fetch(`process.env.APP_URL/api/users/update/${loggedInUserID}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -128,7 +129,7 @@ export default function Catalog() {
     }
 
     const userData = await fetch(
-      `http://localhost:3000/api/sponsor_driver_relationship/read/${loggedInUserID}`
+      `process.env.APP_URL/api/sponsor_driver_relationship/read/${loggedInUserID}`
     ).then((r) => {
       return r.json().then((v) => {
         return v;
@@ -143,7 +144,7 @@ export default function Catalog() {
     // once this completes we can get the organization ID from userData using userData[x].Sponsor_Org_ID
     // we will now pull from the getcatalog endpoint
     const next_res = await fetch(
-      `http://localhost:3000/api/catalog/read/${userData[0].Sponsor_Org_ID}`
+      `process.env.APP_URL/api/catalog/read/${userData[0].Sponsor_Org_ID}`
     );
     const catalogArray = await next_res.json();
     if (!catalogArray[0].catalog.includes(id)) {
@@ -158,7 +159,7 @@ export default function Catalog() {
       },
     };
     fetch(
-      `http://localhost:3000/api/catalog/update/${catalogArray[0].Catalog_ID}`,
+      `process.env.APP_URL/api/catalog/update/${catalogArray[0].Catalog_ID}`,
       {
         method: "PUT",
         headers: {

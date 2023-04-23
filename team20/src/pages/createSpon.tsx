@@ -4,6 +4,7 @@ import React, { Component, useState, useEffect } from "react";
 import { UserType } from "@/types/user";
 import NotFoundPage from "@/components/404";
 import { CircularProgress } from "@mui/material";
+require("dotenv").config();
 
 class CreateSpon extends Component {
   state = {
@@ -47,7 +48,7 @@ class CreateSpon extends Component {
       };
 
       console.log("sending to database..");
-      fetch("http://localhost:3000/api/users/create/sponsor/adduser", {
+      fetch("process.env.APP_URL/api/users/create/sponsor/adduser", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -78,7 +79,7 @@ class CreateSpon extends Component {
     Auth.currentAuthenticatedUser().then(async (data) => {
       this.setState({ userID: await data.username });
       const res = await fetch(
-        `http://localhost:3000/api/users/read/${this.state.userID}`
+        `process.env.APP_URL/api/users/read/${this.state.userID}`
       );
       const info = await res.json();
       this.setState({ userType: info[0].User_Type });

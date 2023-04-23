@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import { getID, getInfo, getOrgs } from "@/utils/userService";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import Box from "@mui/material/Box";
+require("dotenv").config();
 Amplify.configure(awsExports);
 
 function App({ signOut, user }: { signOut: any; user: any }) {
@@ -32,7 +33,7 @@ function App({ signOut, user }: { signOut: any; user: any }) {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/users/create/adduser", {
+    fetch("process.env.APP_URL/api/users/create/adduser", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
