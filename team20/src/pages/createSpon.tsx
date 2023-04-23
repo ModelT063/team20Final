@@ -20,7 +20,7 @@ class CreateSpon extends Component {
     },
   };
 
-  handleSubmit = async (event) => {
+  handleSubmit = async (event: any) => {
     event.preventDefault();
 
     // AWS Cognito integration here
@@ -67,7 +67,7 @@ class CreateSpon extends Component {
     }
   };
 
-  onInputChange = (event) => {
+  onInputChange = (event: any) => {
     this.setState({
       [event.target.id]: event.target.value,
     });

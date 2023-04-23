@@ -135,7 +135,7 @@ export default function Catalog() {
       });
     });
     // let userData = await res.json();
-    if (!userData) {
+    if (!userData || userData.length === 0) {
       console.error("Failed to get user data");
       return;
     }
@@ -169,10 +169,6 @@ export default function Catalog() {
     );
   };
 
-  function delete_prompt(): void {
-    throw new Error("Function not implemented.");
-  }
-
   return (
     <>
       <Navbar />
@@ -182,23 +178,22 @@ export default function Catalog() {
         <Box margin="8px" display="flex" justifyContent="center">
           <Typography>Failed to load user info, please try again</Typography>
         </Box>
+      ) : userType === UserType.driver && sponsorCatalog.length === 0 ? (
+        // if user is a driver and sponsor catalog is empty or fails to load
+        <Box
+          margin="8px"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          flexDirection="column"
+        >
+          <Typography>Failed to load sponsor catalog!</Typography>
+          <Typography>
+            This could mean you are not assigned to a sponsor or your
+            sponsor&#39s catalog is empty
+          </Typography>
+        </Box>
       ) : (
-        // ************ Uncomment this for when we have connection between driver and sponsor **********************
-        // ) : userType === UserType.driver && sponsorCatalog.length === 0 ? (
-        //   // if user is a driver and sponsor catalog is empty or fails to load
-        //   <Box
-        //     margin="8px"
-        //     display="flex"
-        //     justifyContent="center"
-        //     alignItems="center"
-        //     flexDirection="column"
-        //   >
-        //     <Typography>Failed to load sponsor catalog!</Typography>
-        //     <Typography>
-        //       This could mean you are not assigned to a sponsor or your sponsor's
-        //       catalog is empty
-        //     </Typography>
-        //   </Box>
         <Box margin="8px">
           <Box
             display="flex"
@@ -225,30 +220,26 @@ export default function Catalog() {
             flexDirection="column"
             padding="8px"
           >
-            <TextField
-              sx={{ width: "75%", alignSelf: "center" }}
-              value={searchTerm}
-              InputProps={{
-                endAdornment: (
-                  <IconButton
-                    onClick={() => {
-                      // userType === UserType.driver
-                      //   ? {
-                      //       /* implement catalog search for drivers*/
-                      //     }
-                      //   : // only calls this function to search itunes itself
-                      //     // if user is not a driver
-                      searchITunes(searchTerm);
-                    }}
-                  >
-                    <Search />
-                  </IconButton>
-                ),
-              }}
-              onChange={(e) => {
-                setSearchTerm(e.target.value);
-              }}
-            ></TextField>
+            {userType !== UserType.driver && (
+              <TextField
+                sx={{ width: "75%", alignSelf: "center" }}
+                value={searchTerm}
+                InputProps={{
+                  endAdornment: (
+                    <IconButton
+                      onClick={() => {
+                        searchITunes(searchTerm);
+                      }}
+                    >
+                      <Search />
+                    </IconButton>
+                  ),
+                }}
+                onChange={(e) => {
+                  setSearchTerm(e.target.value);
+                }}
+              ></TextField>
+            )}
             <Grid
               container
               spacing={{ xs: 2, md: 3 }}

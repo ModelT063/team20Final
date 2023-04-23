@@ -19,6 +19,7 @@
     "@next/font": "13.1.6",
     "@types/node": "18.11.18",
     "aws-amplify": "^5.0.16",
+    "aws-sdk": "^2.1363.0",
     "dotenv": "^16.0.3",
     "eslint": "8.33.0",
     "eslint-config-next": "13.1.6",
