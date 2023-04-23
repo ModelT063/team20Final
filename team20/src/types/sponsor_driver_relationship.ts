@@ -1,3 +1,5 @@
+import { URL } from "url";
+
 export enum RelationshipStatus {
     rejected = 0,
     accepted = 1,
@@ -11,5 +13,5 @@ export type Sponsor_Driver_Relationship = {
     User_ID?: string;
     Sponsor_Org_ID?: number;
     Application_Time_Submitted: Date;
-    Application_Document: Blob;
+    Application_Document: string;
 }
