@@ -28,7 +28,7 @@ class CreateSponOrg extends Component {
     Auth.currentAuthenticatedUser().then(async (data) => {
       this.data_state.userID = await data.username;
       const res = await fetch(
-        `${process.env.APP_URL}/api/users/read/${this.data_state.userID}`
+        `${process.env.APP_URL}api/users/read/${this.data_state.userID}`
       );
       const info = await res.json();
       this.setState({ userType: info[0].User_Type });
@@ -47,7 +47,7 @@ class CreateSponOrg extends Component {
 
     console.log("sending to database..");
     fetch(
-      `${process.env.APP_URL}/api/sponsororganization/create/addorganization`,
+      `${process.env.APP_URL}api/sponsororganization/create/addorganization`,
       {
         method: "POST",
         headers: {

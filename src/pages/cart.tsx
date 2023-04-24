@@ -24,7 +24,7 @@ export default function Cart() {
     // let cognitoUser = JSON.parse(localStorage.getItem("CognitoUser") || "{}");
     // let userID = cognitoUser.username;
     const res = await fetch(
-      `${process.env.APP_URL}/api/users/read/${loggedInUserID}`
+      `${process.env.APP_URL}api/users/read/${loggedInUserID}`
     );
     let userData = await res.json();
     userData[0].Cart = [];
@@ -39,7 +39,7 @@ export default function Cart() {
         ids: userData[0].Cart,
       },
     };
-    fetch(`${process.env.APP_URL}/api/users/update/${loggedInUserID}`, {
+    fetch(`${process.env.APP_URL}api/users/update/${loggedInUserID}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -63,7 +63,7 @@ export default function Cart() {
       return;
     }
 
-    fetch(`${process.env.APP_URL}/api/users/read/${loggedInUserID}`)
+    fetch(`${process.env.APP_URL}api/users/read/${loggedInUserID}`)
       .then((res) =>
         res
           .json()

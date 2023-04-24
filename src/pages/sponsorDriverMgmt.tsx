@@ -19,7 +19,7 @@ class SponDriverMgmt extends Component {
       //   this.state.userID = await data.username;
       this.setState({ userID: await data.username });
       const res = await fetch(
-        `${process.env.APP_URL}/api/users/read/${this.state.userID}`
+        `${process.env.APP_URL}api/users/read/${this.state.userID}`
       );
       const info = await res.json();
       this.setState({ userType: info[0].User_Type });

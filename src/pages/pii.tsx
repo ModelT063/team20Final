@@ -70,7 +70,7 @@ export default function Pii() {
       },
     };
     setInfo([updatedUser] as any);
-    fetch(`${process.env.APP_URL}/api/users/update/${id}`, {
+    fetch(`${process.env.APP_URL}api/users/update/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

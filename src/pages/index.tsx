@@ -32,7 +32,7 @@ function App({ signOut, user }: { signOut: any; user: any }) {
   }, []);
 
   useEffect(() => {
-    fetch(`api/users/create/adduser`, {
+    fetch(`${process.env.APP_URL}api/users/create/adduser`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

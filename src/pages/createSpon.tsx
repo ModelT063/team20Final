@@ -47,7 +47,7 @@ class CreateSpon extends Component {
       };
 
       console.log("sending to database..");
-      fetch(`${process.env.APP_URL}/api/users/create/sponsor/adduser`, {
+      fetch(`${process.env.APP_URL}api/users/create/sponsor/adduser`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -78,7 +78,7 @@ class CreateSpon extends Component {
     Auth.currentAuthenticatedUser().then(async (data) => {
       this.setState({ userID: await data.username });
       const res = await fetch(
-        `${process.env.APP_URL}/api/users/read/${this.state.userID}`
+        `${process.env.APP_URL}api/users/read/${this.state.userID}`
       );
       const info = await res.json();
       this.setState({ userType: info[0].User_Type });
