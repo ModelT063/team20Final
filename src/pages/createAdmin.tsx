@@ -47,7 +47,7 @@ class CreateAdmin extends Component {
       };
 
       console.log("sending to database..");
-      fetch(`${process.env.APP_URL}api/users/create/admin/adduser`, {
+      fetch(`api/users/create/admin/adduser`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -77,9 +77,7 @@ class CreateAdmin extends Component {
   componentDidMount() {
     Auth.currentAuthenticatedUser().then(async (data) => {
       this.setState({ userID: await data.username });
-      const res = await fetch(
-        `${process.env.APP_URL}api/users/read/${this.state.userID}`
-      );
+      const res = await fetch(`api/users/read/${this.state.userID}`);
       const info = await res.json();
       this.setState({ userType: info[0].User_Type });
     });

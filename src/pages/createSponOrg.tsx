@@ -27,9 +27,7 @@ class CreateSponOrg extends Component {
   componentDidMount() {
     Auth.currentAuthenticatedUser().then(async (data) => {
       this.data_state.userID = await data.username;
-      const res = await fetch(
-        `${process.env.APP_URL}api/users/read/${this.data_state.userID}`
-      );
+      const res = await fetch(`api/users/read/${this.data_state.userID}`);
       const info = await res.json();
       this.setState({ userType: info[0].User_Type });
     });
@@ -46,16 +44,13 @@ class CreateSponOrg extends Component {
     };
 
     console.log("sending to database..");
-    fetch(
-      `${process.env.APP_URL}api/sponsororganization/create/addorganization`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      }
-    )
+    fetch(`api/sponsororganization/create/addorganization`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
       .then((response) => response.json())
       .then((data) => {
         console.log("Success: ", data);

@@ -51,16 +51,12 @@ export default function Catalog() {
       return;
     }
 
-    fetch(
-      `${process.env.APP_URL}api/sponsor_driver_relationship/read/${loggedInUserID}`
-    )
+    fetch(`api/sponsor_driver_relationship/read/${loggedInUserID}`)
       .then((res) =>
         res
           .json()
           .then((userData) => {
-            fetch(
-              `${process.env.APP_URL}api/catalog/read/${userData[0].Sponsor_Org_ID}`
-            )
+            fetch(`api/catalog/read/${userData[0].Sponsor_Org_ID}`)
               .then((res) => res.json().then((res) => setSponsorCatalog(res)))
               .catch((e) => console.log(e));
           })
@@ -74,9 +70,7 @@ export default function Catalog() {
   const addToCart = async (id: number) => {
     // let cognitoUser = JSON.parse(localStorage.getItem("CognitoUser") || "{}");
     // let userID = cognitoUser.username;
-    const res = await fetch(
-      `${process.env.APP_URL}api/users/read/${loggedInUserID}`
-    );
+    const res = await fetch(`api/users/read/${loggedInUserID}`);
     let userData = await res.json();
     userData[0].Cart.push(id);
     const updatedUser = {
@@ -90,7 +84,7 @@ export default function Catalog() {
         ids: userData[0].Cart,
       },
     };
-    fetch(`${process.env.APP_URL}api/users/update/${loggedInUserID}`, {
+    fetch(`api/users/update/${loggedInUserID}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -116,7 +110,7 @@ export default function Catalog() {
     }
 
     const userData = await fetch(
-      `${process.env.APP_URL}api/sponsor_driver_relationship/read/${loggedInUserID}`
+      `api/sponsor_driver_relationship/read/${loggedInUserID}`
     ).then((r) => {
       return r.json().then((v) => {
         return v;
@@ -131,7 +125,7 @@ export default function Catalog() {
     // once this completes we can get the organization ID from userData using userData[x].Sponsor_Org_ID
     // we will now pull from the getcatalog endpoint
     const next_res = await fetch(
-      `${process.env.APP_URL}api/catalog/read/${userData[0].Sponsor_Org_ID}`
+      `api/catalog/read/${userData[0].Sponsor_Org_ID}`
     );
     const catalogArray = await next_res.json();
     if (!catalogArray[0].catalog.includes(id)) {
@@ -145,16 +139,13 @@ export default function Catalog() {
         ids: catalogArray[0].catalog,
       },
     };
-    fetch(
-      `${process.env.APP_URL}api/catalog/update/${catalogArray[0].Catalog_ID}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedCatalog),
-      }
-    );
+    fetch(`api/catalog/update/${catalogArray[0].Catalog_ID}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedCatalog),
+    });
   };
 
   return (
