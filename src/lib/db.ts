@@ -1,5 +1,5 @@
 import mysql from 'mysql2'
-require('dotenv').config()
+//require('dotenv').config()
 
 export const db = mysql.createConnection({
     host: process.env.DATABASE_URL,
