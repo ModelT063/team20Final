@@ -31,7 +31,7 @@ module.exports = (phase) => {
           USER_POOL_CLIENT_ID: "39tpk87ra9174ka9vv6trla406", 
           REDIRECT_SIGN_IN: process.env.APP_URL + "/token",
           REDIRECT_SIGN_OUT: process.env.APP_URL,
-          AUTH_COOKIE_DOMAIN: "main.d36uuflbr4swes.amplifyapp.com",
+          AUTH_COOKIE_DOMAIN: "main.d12gpukybqal69.amplifyapp.com",
           DATABASE_URL: process.env.DATABASE_URL,
           DATABASE_USER: process.env.DATABASE_USER,
           DATABASE_PASSWORD: process.env.DATABASE_PASSWORD,
