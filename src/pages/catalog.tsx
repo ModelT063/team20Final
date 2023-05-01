@@ -39,8 +39,8 @@ export default function Catalog() {
 
   // use this to set searchResults to be the albums found in sponsorCatalog
   // test if this works
-  const displaySponsorCatalog = async () => {
-    const results = await getCatalogAlbums(sponsorCatalog);
+  const displaySponsorCatalog = async (catalog: number[]) => {
+    const results = await getCatalogAlbums(catalog);
     setsearchResults(results.results);
   };
 
@@ -57,14 +57,20 @@ export default function Catalog() {
           .json()
           .then((userData) => {
             fetch(`api/catalog/read/${userData[0].Sponsor_Org_ID}`)
-              .then((res) => res.json().then((res) => setSponsorCatalog(res)))
+              .then((res) =>
+                res.json().then((catalog) => {
+                  setSponsorCatalog(catalog[0].catalog);
+                  if (userType === UserType.driver)
+                    displaySponsorCatalog(catalog[0].catalog);
+                })
+              )
               .catch((e) => console.log(e));
           })
           .catch((e) => console.log(e))
       )
       .catch((e) => console.log(e));
 
-    if (userType === UserType.driver) displaySponsorCatalog();
+    // if (userType === UserType.driver) displaySponsorCatalog();
   }, [loggedInUserID]);
 
   const addToCart = async (id: number) => {
@@ -168,8 +174,8 @@ export default function Catalog() {
         >
           <Typography>Failed to load sponsor catalog!</Typography>
           <Typography>
-            This could mean you are not assigned to a sponsor or your
-            sponsor&#39s catalog is empty
+            This could mean you are not assigned to a sponsor or your sponsors
+            catalog is empty
           </Typography>
         </Box>
       ) : (
