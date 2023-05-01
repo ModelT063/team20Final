@@ -47,7 +47,7 @@ const UploadToS3WithNativeSdk = () => {
   return (
     <div>
       <h2>
-        PLEASE NAME THE APPLICATION: &#39name of your organization&#39.pdf
+        PLEASE NAME THE APPLICATION: name-of-your-organization.pdf
       </h2>
       <div>Application File Upload Progress is {progress}%</div>
       <input type="file" onChange={handleFileInput} />

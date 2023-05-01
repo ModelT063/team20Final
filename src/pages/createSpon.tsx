@@ -84,14 +84,7 @@ class CreateSpon extends Component {
   }
 
   render() {
-    return this.state.userType === "" ? (
-      <>
-        <Navbar />
-        <CircularProgress />
-      </>
-    ) : parseInt(this.state.userType) != UserType.admin ? (
-      <NotFoundPage />
-    ) : (
+    return (
       <>
         <Navbar />
         <section className="section auth">

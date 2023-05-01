@@ -68,14 +68,7 @@ class CreateSponOrg extends Component {
   };
 
   render() {
-    return this.data_state.userType === "" ? (
-      <>
-        <Navbar />
-        <CircularProgress />
-      </>
-    ) : parseInt(this.data_state.userType) != UserType.admin ? (
-      <NotFoundPage />
-    ) : (
+    return (
       <>
         <Navbar />
 

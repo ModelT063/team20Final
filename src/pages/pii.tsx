@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import { getOrgs } from "@/utils/userService";
 import Close from "@mui/icons-material/Close";
 import Edit from "@mui/icons-material/Edit";
+import Link from "next/link";
 
 export default function Pii() {
   const [isOpen, setIsOpen] = useState(false);
@@ -90,6 +91,10 @@ export default function Pii() {
         <center>Account Information</center>
       </h1>
       <center>
+        
+        <Link href="/createSpon" >Create sponsor     </Link>
+        <Link href="/createAdmin" >Create admin     </Link>
+
         {userInfo[0] && (
           <IconButton onClick={handleOpen}>
             <Edit />

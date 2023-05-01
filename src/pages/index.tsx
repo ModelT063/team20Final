@@ -76,7 +76,7 @@ function App({ signOut, user }: { signOut: any; user: any }) {
             technology to track their driving performance, purchase products,
             and to establish connections with their sponsors. This platform also
             provides opportuntiy for sponsoring companies to develop clientele
-            with our drivers. Currenlty we are number one in the Southeastern
+            with our drivers. Currently we are number one in the Southeastern
             United States region for truck driver assistance and performance.
           </Box>
         </center>

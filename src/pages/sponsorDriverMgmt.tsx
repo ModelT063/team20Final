@@ -25,16 +25,7 @@ class SponDriverMgmt extends Component {
   }
 
   render() {
-    /*return 
-    this.state.userType === "" ? (
-      <>
-        <Navbar />
-        <CircularProgress />
-      </>
-    ) :*/
-    return parseInt(this.state.userType) != UserType.sponsor ? (
-      <NotFoundPage />
-    ) : (
+    return (
       <>
         <Navbar />
 
