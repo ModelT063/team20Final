@@ -6,13 +6,14 @@ import Navbar from "../components/Navbar";
 import { Auth } from "aws-amplify";
 
 class CreateSponOrg extends Component {
+
   state = {
     spon_org_id: 0,
     org_name: "",
     points_ratio: 0.0,
     address: "",
-    org_status: 0,
-    cat_id: 0,
+    org_status: 1,
+    cat_id: 9,
   };
 
   data_state = {
@@ -34,13 +35,15 @@ class CreateSponOrg extends Component {
   }
 
   handleSubmit = async (event: any) => {
+    alert('Organization was submitted: ' + this.state.org_name);
+    event.preventDefault();
     const data = {
       Sponsor_Org_ID: this.getRndInteger(0, 9999),
       Organization_Name: this.state.org_name,
       Points_Ratio: this.state.points_ratio,
       Address: this.state.address,
       Organization_Status: this.state.org_status,
-      Catalog_ID: this.getRndInteger(0, 9999),
+      Catalog_ID: 1,
     };
 
     console.log("sending to database..");
@@ -76,26 +79,23 @@ class CreateSponOrg extends Component {
           <div className="container">
             <h1>Register</h1>
             <form onSubmit={this.handleSubmit}>
-              <div className="field">
-                <p className="control">
+              
                   <input
+                    id="org_name"
                     className="input"
                     type="text"
-                    id="username"
-                    aria-describedby="userNameHelp"
                     placeholder="Enter organization name"
                     value={this.state.org_name}
                     onChange={this.onInputChange}
                   />
-                </p>
-              </div>
+                
               <div className="field">
                 <p className="control">
                   <input
+                    id="points_ratio"
                     className="input"
                     type="number"
-                    id="name"
-                    aria-describedby="userNameHelp"
+                    step=".01"
                     placeholder="Enter points ratio"
                     value={this.state.points_ratio}
                     onChange={this.onInputChange}
@@ -105,9 +105,9 @@ class CreateSponOrg extends Component {
               <div className="field">
                 <p className="control has-icons-left">
                   <input
+                    id="address"
                     className="input"
                     type="text"
-                    id="password"
                     placeholder="Enter address"
                     value={this.state.address}
                     onChange={this.onInputChange}
