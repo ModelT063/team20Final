@@ -9,8 +9,8 @@ const REGION = "us-east-1";
 const DownloadFromS3 = () => {
   const downloadFile = async (file: any) => {
     const creds = {
-      accessKeyId: "AKIAT77CFA37R6U3EMOS",
-      secretAccessKey: "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",
+      accessKeyId: "none",
+      secretAccessKey: "none",
     };
 
     const client = new S3Client({
